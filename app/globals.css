@@ -1,0 +1,2322 @@
+ @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================
+   SISAY ABEBAYEW PORTFOLIO
+   GLOBAL DESIGN SYSTEM
+   DARK + LIGHT PREMIUM THEME
+   ========================================================= */
+
+
+/* =========================================================
+   1. THEME VARIABLES
+   ========================================================= */
+
+:root {
+  /* ---------------- DARK MODE ---------------- */
+
+  --background: #05080d;
+  --foreground: #f8fafc;
+
+  --surface: #0b1118;
+  --surface-2: #101923;
+  --surface-3: #151f2b;
+
+  --paper: #f8fafc;
+  --paper-muted: #cbd5e1;
+  --paper-soft: #94a3b8;
+
+  --navy: #07111c;
+
+  --accent: #00c9b7;
+  --accent-bright: #19e6d2;
+  --accent-soft: rgba(0, 201, 183, 0.12);
+
+  --line: rgba(148, 163, 184, 0.14);
+  --line-strong: rgba(148, 163, 184, 0.24);
+
+  --shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35);
+
+  --shadow-hover:
+    0 30px 80px rgba(0, 0, 0, 0.48);
+
+  --glass:
+    rgba(11, 17, 24, 0.72);
+
+  --glass-strong:
+    rgba(11, 17, 24, 0.88);
+
+  --overlay:
+    rgba(5, 8, 13, 0.76);
+
+  --grid-color:
+    rgba(148, 163, 184, 0.045);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --transition-fast: 180ms ease;
+  --transition: 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+
+/* =========================================================
+   2. LIGHT MODE
+   Screenshot-inspired:
+   soft blue-white + navy + teal
+   ========================================================= */
+
+.light,
+[data-theme="light"] {
+  --background: #edf6fb;
+  --foreground: #0b1220;
+
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-2: rgba(255, 255, 255, 0.58);
+  --surface-3: #ffffff;
+
+  --paper: #0b1220;
+  --paper-muted: #334155;
+  --paper-soft: #64748b;
+
+  --navy: #07111c;
+
+  --accent: #008f83;
+  --accent-bright: #00b8a9;
+  --accent-soft: rgba(0, 143, 131, 0.11);
+
+  --line: rgba(71, 105, 125, 0.15);
+  --line-strong: rgba(71, 105, 125, 0.24);
+
+  --shadow:
+    0 18px 50px rgba(71, 105, 125, 0.09);
+
+  --shadow-hover:
+    0 28px 70px rgba(71, 105, 125, 0.15);
+
+  --glass:
+    rgba(255, 255, 255, 0.62);
+
+  --glass-strong:
+    rgba(255, 255, 255, 0.84);
+
+  --overlay:
+    rgba(237, 246, 251, 0.72);
+
+  --grid-color:
+    rgba(15, 23, 42, 0.035);
+}
+
+
+/* =========================================================
+   3. RESET
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(0, 201, 183, 0.05),
+      transparent 28%
+    ),
+    var(--background);
+
+  color: var(--foreground);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  line-height: 1.6;
+
+  overflow-x: hidden;
+
+  transition:
+    background-color 400ms ease,
+    color 400ms ease;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+video,
+canvas {
+  max-width: 100%;
+}
+
+img {
+  display: block;
+}
+
+button {
+  border: 0;
+}
+
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   4. GLOBAL SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-bright);
+}
+
+
+/* =========================================================
+   5. GLOBAL CONTAINERS
+   ========================================================= */
+
+.section-container {
+  width: min(1180px, calc(100% - 40px));
+  margin-inline: auto;
+}
+.container {
+  width: min(1180px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+
+/* =========================================================
+   6. PREMIUM GRID BACKGROUND
+   ========================================================= */
+
+.bg-grid-glow {
+  position: relative;
+
+  background-color: var(--background);
+
+  background-image:
+    linear-gradient(
+      var(--grid-color) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      var(--grid-color) 1px,
+      transparent 1px
+    );
+
+  background-size: 42px 42px;
+}
+
+.bg-grid-glow::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 75% 20%,
+      rgba(0, 201, 183, 0.10),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(0, 201, 183, 0.06),
+      transparent 28%
+    );
+
+  z-index: 0;
+}
+
+.light .bg-grid-glow::before,
+[data-theme="light"] .bg-grid-glow::before {
+  background:
+    radial-gradient(
+      circle at 75% 20%,
+      rgba(0, 143, 131, 0.08),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(0, 143, 131, 0.05),
+      transparent 28%
+    );
+}
+
+
+/* =========================================================
+   7. PREMIUM GLASS CARD
+   ========================================================= */
+
+.theme-card {
+  background: var(--glass);
+
+  border: 1px solid var(--line);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow: var(--shadow);
+
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition),
+    transform var(--transition);
+}
+
+.theme-card:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-4px);
+}
+
+
+/* =========================================================
+   8. EYEBROW
+   ========================================================= */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  color: var(--accent);
+
+  font-size: 0.72rem;
+  font-weight: 700;
+
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 999px;
+
+  background: var(--accent);
+
+  box-shadow:
+    0 0 14px rgba(0, 201, 183, 0.6);
+}
+
+
+/* =========================================================
+   9. NAVIGATION
+   ========================================================= */
+
+header,
+.navbar {
+  background: var(--glass-strong);
+
+  border-bottom: 1px solid var(--line);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  transition:
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+nav a {
+  color: var(--paper-soft);
+
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+.nav-cta {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.nav-cta:hover {
+  background: var(--accent);
+  color: var(--navy);
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   10. HERO
+   ========================================================= */
+
+.hero,
+.hero-section {
+  position: relative;
+  min-height: 92vh;
+
+  overflow: hidden;
+
+  background: var(--background);
+}
+
+.hero h1,
+.hero-section h1 {
+  color: var(--paper);
+}
+
+.hero-title {
+  color: var(--paper-muted);
+}
+
+.hero-description {
+  color: var(--paper-soft);
+}
+
+.light .hero h1,
+[data-theme="light"] .hero h1,
+.light .hero-section h1,
+[data-theme="light"] .hero-section h1 {
+  color: #0b1220;
+}
+
+.light .hero-title,
+[data-theme="light"] .hero-title {
+  color: #334155;
+}
+
+.light .hero-description,
+[data-theme="light"] .hero-description {
+  color: #475569;
+}
+
+
+/* =========================================================
+   11. HERO 3D BACKGROUND
+   ========================================================= */
+   .hero-3d,
+.hero-scene,
+.three-background {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+}
+
+.light .hero-3d,
+[data-theme="light"] .hero-3d,
+.light .hero-scene,
+[data-theme="light"] .hero-scene {
+  opacity: 0.82;
+}
+
+
+/* =========================================================
+   12. BUTTONS
+   ========================================================= */
+
+.btn-primary {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 46px;
+
+  padding:
+    0.75rem
+    1.35rem;
+
+  border-radius: 999px;
+
+  background: var(--accent);
+  color: var(--navy);
+
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 30px rgba(0, 201, 183, 0.18);
+
+  transition:
+    transform var(--transition-fast),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.btn-primary:hover {
+  background: var(--accent-bright);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 14px 35px rgba(0, 201, 183, 0.25);
+}
+
+.btn-secondary {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 46px;
+
+  padding:
+    0.75rem
+    1.35rem;
+
+  border: 1px solid var(--line-strong);
+
+  border-radius: 999px;
+
+  background: var(--glass);
+
+  color: var(--paper);
+
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(14px);
+
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   13. SECTION TITLES
+   ========================================================= */
+
+.section-title {
+  color: var(--paper);
+
+  font-family:
+    "Space Grotesk",
+    Inter,
+    sans-serif;
+
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+
+  font-weight: 700;
+
+  letter-spacing: -0.035em;
+}
+
+.section-subtitle {
+  max-width: 620px;
+
+  color: var(--paper-soft);
+
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   14. ALL SECTIONS
+   ========================================================= */
+
+section {
+  position: relative;
+
+  background: var(--background);
+
+  color: var(--foreground);
+
+  transition:
+    background-color 400ms ease,
+    color 400ms ease;
+}
+
+section.alt-bg {
+  background: var(--surface);
+}
+
+
+/* =========================================================
+   15. SECTION BACKGROUNDS
+   ========================================================= */
+
+.section-bg-about,
+.section-bg-skills,
+.section-bg-projects,
+.section-bg-services,
+.section-bg-stats,
+.section-bg-testimonials,
+.section-bg-contact {
+  position: relative;
+
+  background-color: var(--background);
+
+  background-image:
+    linear-gradient(
+      var(--grid-color) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      var(--grid-color) 1px,
+      transparent 1px
+    );
+
+  background-size: 42px 42px;
+}
+
+.section-bg-about .section-overlay,
+.section-bg-skills .section-overlay,
+.section-bg-projects .section-overlay,
+.section-bg-services .section-overlay,
+.section-bg-stats .section-overlay,
+.section-bg-testimonials .section-overlay,
+.section-bg-contact .section-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: var(--overlay);
+
+  pointer-events: none;
+
+  transition:
+    background-color 400ms ease;
+}
+
+.section-bg-about > .container,
+.section-bg-skills > .container,
+.section-bg-projects > .container,
+.section-bg-services > .container,
+.section-bg-stats > .container,
+.section-bg-testimonials > .container,
+.section-bg-contact > .container {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* =========================================================
+   16. ABOUT
+   ========================================================= */
+
+.about-text h3 {
+  color: var(--paper);
+
+  font-family:
+    "Space Grotesk",
+    Inter,
+    sans-serif;
+}
+
+.about-role {
+  color: var(--accent);
+}
+.about-text p {
+  color: var(--paper-soft);
+}
+
+.detail-item {
+  color: var(--paper-soft);
+}
+
+.detail-item strong {
+  color: var(--paper);
+}
+
+.detail-item i {
+  color: var(--accent);
+}
+
+
+/* =========================================================
+   17. SKILLS
+   ========================================================= */
+
+.skill-card {
+  background: var(--glass);
+
+  border: 1px solid var(--line);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-radius: var(--radius-lg);
+
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    background-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.skill-card:hover {
+  border-color: var(--accent);
+
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 20px 50px rgba(0, 201, 183, 0.10);
+}
+
+.skill-card h3 {
+  color: var(--paper);
+}
+
+.skill-card p,
+.skill-card li {
+  color: var(--paper-soft);
+}
+
+.skill-icon {
+  color: var(--accent);
+}
+
+
+/* =========================================================
+   18. SKILL PROGRESS
+   ========================================================= */
+
+.skills-progress {
+  background: var(--glass);
+
+  border: 1px solid var(--line);
+
+  backdrop-filter: blur(18px);
+
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow);
+}
+
+.skill-progress-name {
+  color: var(--paper);
+}
+
+.skill-progress-percent {
+  color: var(--accent);
+}
+
+.skill-progress-bar {
+  background: rgba(148, 163, 184, 0.13);
+}
+
+.skill-progress-fill {
+  background:
+    linear-gradient(
+      90deg,
+      var(--accent),
+      var(--accent-bright)
+    );
+}
+
+
+/* =========================================================
+   19. PROJECTS
+   ========================================================= */
+
+.project-card {
+  background: var(--glass);
+
+  border: 1px solid var(--line);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-radius: var(--radius-lg);
+
+  overflow: hidden;
+
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+
+  transform: translateY(-7px);
+
+  box-shadow:
+    0 24px 60px rgba(0, 201, 183, 0.10);
+}
+
+.project-body h3 {
+  color: var(--paper);
+}
+
+.project-body p {
+  color: var(--paper-soft);
+}
+
+.project-category {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.project-tags span {
+  color: var(--paper-soft);
+
+  background:
+    rgba(148, 163, 184, 0.08);
+
+  border: 1px solid var(--line);
+}
+
+.project-link {
+  color: var(--paper-soft);
+}
+
+.project-link:hover {
+  color: var(--accent);
+}
+
+
+/* =========================================================
+   20. SERVICES
+   ========================================================= */
+
+.service-card {
+  position: relative;
+
+  overflow: hidden;
+
+  background: var(--glass);
+
+  border: 1px solid var(--line);
+
+  backdrop-filter: blur(18px);
+
+  border-radius: var(--radius-lg);
+
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.service-card:hover {
+  border-color: var(--accent);
+
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 24px 60px rgba(0, 201, 183, 0.10);
+}
+
+.service-card h3 {
+  color: var(--paper);
+}
+
+.service-card p {
+  color: var(--paper-soft);
+}
+
+.service-icon {
+  color: var(--accent);
+}
+
+.service-number {
+  color: rgba(148, 163, 184, 0.08);
+}
+
+
+/* =========================================================
+   21. STATISTICS
+   ========================================================= */
+
+.stats-section {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.stat-card {
+  background: var(--glass);
+
+  border: 1px solid var(--line);
+
+  backdrop-filter: blur(16px);
+
+  border-radius: var(--radius-lg);
+
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.stat-card:hover {
+  border-color: var(--accent);
+
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 20px 50px rgba(0, 201, 183, 0.08);
+}
+
+.stat-number {
+  color: var(--accent);
+}
+.stat-label {
+  color: var(--paper-soft);
+}
+
+
+/* =========================================================
+   22. TESTIMONIALS
+   ========================================================= */
+
+.testimonial-content {
+  background: var(--glass);
+
+  border: 1px solid var(--line);
+
+  backdrop-filter: blur(18px);
+
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow);
+}
+
+.testimonial-text {
+  color: var(--paper);
+}
+
+.testimonial-author-info h4 {
+  color: var(--paper);
+}
+
+.testimonial-author-info span {
+  color: var(--paper-soft);
+}
+
+.testimonial-stars {
+  color: #f4a261;
+}
+
+.testimonial-dots .dot {
+  background: rgba(148, 163, 184, 0.22);
+}
+
+.testimonial-dots .dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+
+  box-shadow:
+    0 0 20px rgba(0, 201, 183, 0.25);
+}
+
+
+/* =========================================================
+   23. CONTACT
+   ========================================================= */
+
+.contact-info h3 {
+  color: var(--paper);
+}
+
+.contact-info > p {
+  color: var(--paper-soft);
+}
+
+.contact-item strong {
+  color: var(--paper);
+}
+
+.contact-item a,
+.contact-item span {
+  color: var(--paper-soft);
+}
+
+.contact-item a:hover {
+  color: var(--accent);
+}
+
+
+/* =========================================================
+   24. CONTACT FORM
+   ========================================================= */
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+
+  background: var(--glass);
+
+  border: 1px solid var(--line);
+
+  border-radius: 14px;
+
+  color: var(--paper);
+
+  outline: none;
+
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--paper-soft);
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  border-color: var(--accent);
+
+  box-shadow:
+    0 0 0 4px var(--accent-soft);
+}
+
+.contact-form label {
+  color: var(--paper);
+}
+
+.contact-form label i {
+  color: var(--accent);
+}
+
+
+/* =========================================================
+   25. SOCIAL LINKS
+   ========================================================= */
+
+.social-links a {
+  color: var(--paper-soft);
+
+  border: 1px solid var(--line);
+
+  background: var(--glass);
+
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.social-links a:hover {
+  color: var(--accent);
+
+  border-color: var(--accent);
+
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 12px 30px rgba(0, 201, 183, 0.10);
+}
+
+
+/* =========================================================
+   26. FOOTER
+   ========================================================= */
+
+footer {
+  background: var(--background);
+
+  border-top: 1px solid var(--line);
+
+  color: var(--paper-soft);
+
+  transition:
+    background-color 400ms ease,
+    border-color 400ms ease;
+}
+
+footer p {
+  color: var(--paper-soft);
+}
+
+  /* =========================================================
+   27. THEME TOGGLE
+   ========================================================= */
+
+.theme-toggle {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 50%;
+
+  background: var(--glass);
+
+  border: 1px solid var(--line);
+
+  color: var(--paper);
+
+  cursor: pointer;
+
+  backdrop-filter: blur(16px);
+
+  transition:
+    transform var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+
+  transform: rotate(18deg);
+}
+
+
+/* =========================================================
+   28. HAMBURGER
+   ========================================================= */
+
+.hamburger span {
+  background: var(--paper);
+}
+
+.hamburger:hover span {
+  background: var(--accent);
+}
+
+
+/* =========================================================
+   29. WEATHER WIDGET
+   ========================================================= */
+
+.weather-widget {
+  background: var(--glass);
+
+  border: 1px solid var(--line);
+
+  backdrop-filter: blur(18px);
+
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow);
+}
+
+.weather-temp {
+  color: var(--paper);
+}
+
+.weather-desc,
+.weather-location,
+.weather-detail {
+  color: var(--paper-soft);
+}
+
+.weather-icon,
+.weather-detail i {
+  color: var(--accent);
+}
+
+
+/* =========================================================
+   30. TYPEWRITER
+   ========================================================= */
+
+.typewriter-text {
+  color: var(--accent);
+}
+
+.typewriter-cursor {
+  color: var(--accent);
+
+  animation:
+    blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   31. SNOW EFFECT
+   ========================================================= */
+
+#snowContainer {
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 9998;
+
+  overflow: hidden;
+}
+
+.snowflake {
+  position: absolute;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  opacity: 0.8;
+
+  animation:
+    fall linear infinite;
+
+  user-select: none;
+}
+
+.light .snowflake,
+[data-theme="light"] .snowflake {
+  color: #008f83;
+}
+
+@keyframes fall {
+  0% {
+    transform:
+      translateY(-10px)
+      rotate(0deg)
+      scale(1);
+
+    opacity: 0.8;
+  }
+
+  100% {
+    transform:
+      translateY(calc(100vh + 20px))
+      rotate(720deg)
+      scale(0.5);
+
+    opacity: 0.2;
+  }
+}
+
+.snow-toggle {
+  position: fixed;
+
+  bottom: 100px;
+  left: 30px;
+
+  z-index: 9999;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 50%;
+
+  background: var(--glass);
+
+  border: 1px solid var(--line);
+
+  color: var(--paper);
+
+  backdrop-filter: blur(14px);
+
+  cursor: pointer;
+
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.snow-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+
+  transform: scale(1.08);
+}
+
+.snow-toggle.active {
+  background: var(--accent);
+  color: var(--navy);
+}
+/* =========================================================
+   32. BACK TO TOP
+   ========================================================= */
+
+#back-to-top {
+  position: fixed;
+
+  right: 24px;
+  bottom: 24px;
+
+  z-index: 999;
+
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  color: var(--navy);
+
+  cursor: pointer;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(12px);
+
+  box-shadow:
+    0 10px 30px rgba(0, 201, 183, 0.25);
+
+  transition:
+    opacity var(--transition-fast),
+    visibility var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+#back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#back-to-top:hover {
+  transform: translateY(-4px);
+}
+
+
+/* =========================================================
+   33. WHATSAPP
+   ========================================================= */
+
+#whatsapp {
+  position: fixed;
+
+  left: 24px;
+  bottom: 24px;
+
+  z-index: 999;
+
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #25d366;
+
+  color: #ffffff;
+
+  box-shadow:
+    0 10px 30px rgba(37, 211, 102, 0.25);
+
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+#whatsapp:hover {
+  transform: scale(1.08);
+
+  box-shadow:
+    0 14px 35px rgba(37, 211, 102, 0.35);
+}
+
+
+/* =========================================================
+   34. SCROLL PROGRESS BAR
+   ========================================================= */
+
+.scroll-progress {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+
+  z-index: 99999;
+
+  pointer-events: none;
+
+  background: transparent;
+}
+
+.scroll-progress-bar {
+  height: 100%;
+
+  width: 0%;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--accent),
+      var(--accent-bright)
+    );
+
+  box-shadow:
+    0 0 14px rgba(0, 201, 183, 0.45);
+
+  transition: width 80ms linear;
+}
+
+
+/* =========================================================
+   35. SECTION NAVIGATION INDICATORS
+   ========================================================= */
+
+.section-indicator {
+  position: fixed;
+
+  right: 24px;
+  top: 50%;
+
+  z-index: 800;
+
+  transform: translateY(-50%);
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.section-indicator button {
+  width: 8px;
+  height: 8px;
+
+  padding: 0;
+
+  border-radius: 50%;
+
+  background: var(--line-strong);
+
+  cursor: pointer;
+
+  transition:
+    transform var(--transition-fast),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.section-indicator button:hover {
+  background: var(--accent);
+
+  transform: scale(1.4);
+}
+
+.section-indicator button.active {
+  background: var(--accent);
+
+  transform: scale(1.5);
+
+  box-shadow:
+    0 0 12px rgba(0, 201, 183, 0.45);
+}
+
+
+/* =========================================================
+   36. REVEAL ANIMATIONS
+   ========================================================= */
+
+.reveal {
+  opacity: 0;
+
+  transform:
+    translateY(30px);
+
+  transition:
+    opacity 700ms ease,
+    transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+
+  transform:
+    translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+
+  transform:
+    translateX(-35px);
+
+  transition:
+    opacity 700ms ease,
+    transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+
+  transform:
+    translateX(35px);
+
+  transition:
+    opacity 700ms ease,
+    transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+/* =========================================================
+   37. PREMIUM MICRO INTERACTION
+   ========================================================= */
+
+.interactive {
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.interactive:hover {
+  transform: translateY(-4px);
+}
+
+.glow-accent {
+  box-shadow:
+    0 0 30px rgba(0, 201, 183, 0.10);
+}
+
+
+/* =========================================================
+   38. LOADING SCREEN
+   ========================================================= */
+
+.loading-screen {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 999999;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: var(--background);
+
+  transition:
+    opacity 500ms ease,
+    visibility 500ms ease;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loading-spinner {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  border:
+    2px solid var(--line);
+
+  border-top-color:
+    var(--accent);
+
+  animation:
+    spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   39. COMMAND PALETTE
+   ========================================================= */
+
+.command-palette-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 99990;
+
+  background:
+    rgba(0, 0, 0, 0.55);
+
+  backdrop-filter: blur(8px);
+}
+
+.command-palette {
+  position: fixed;
+
+  left: 50%;
+  top: 15%;
+
+  z-index: 99991;
+
+  width: min(
+    620px,
+    calc(100% - 32px)
+  );
+
+  transform:
+    translateX(-50%);
+
+  background: var(--glass-strong);
+
+  border:
+    1px solid var(--line);
+
+  border-radius:
+    var(--radius-lg);
+
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.35);
+
+  backdrop-filter:
+    blur(24px);
+
+  overflow: hidden;
+}
+
+.command-palette input {
+  width: 100%;
+
+  padding: 18px 20px;
+
+  background: transparent;
+
+  border: none;
+
+  border-bottom:
+    1px solid var(--line);
+
+  outline: none;
+
+  color: var(--paper);
+}
+
+.command-palette-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding:
+    12px 16px;
+
+  color: var(--paper-soft);
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.command-palette-item:hover,
+.command-palette-item.active {
+  background: var(--accent-soft);
+
+  color: var(--accent);
+}
+
+
+/* =========================================================
+   40. FOCUS ACCESSIBILITY
+   ========================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   41. REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* =========================================================
+   42. TABLET
+   ========================================================= */
+
+@media (max-width: 1024px) {
+
+  .section-container,
+  .container {
+    width: min(
+      100% - 32px,
+      900px
+    );
+  }
+
+  .skills-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .projects-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .services-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .stats-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+/* =========================================================
+   43. MOBILE NAVIGATION
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .section-container,
+  .container {
+    width:
+      calc(100% - 28px);
+  }
+
+  .section-indicator {
+    display: none;
+  }
+
+  nav {
+    max-height:
+      calc(100vh - 80px);
+
+    overflow-y: auto;
+  }
+  .skills-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .stats-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    min-height: 90vh;
+  }
+
+  .scroll-progress {
+    height: 2px;
+  }
+
+  #whatsapp {
+    left: 16px;
+    bottom: 16px;
+
+    width: 46px;
+    height: 46px;
+  }
+
+  #back-to-top {
+    right: 16px;
+    bottom: 16px;
+
+    width: 44px;
+    height: 44px;
+  }
+
+  .snow-toggle {
+    left: 16px;
+    bottom: 78px;
+  }
+}
+
+
+/* =========================================================
+   44. SMALL PHONE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .section-container,
+  .container {
+    width:
+      calc(100% - 24px);
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .theme-card,
+  .skill-card,
+  .project-card,
+  .service-card,
+  .stat-card {
+    border-radius: 18px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   45. LIGHT MODE — FINAL GLOBAL POLISH
+   ========================================================= */
+
+.light body,
+[data-theme="light"] body {
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(0, 143, 131, 0.06),
+      transparent 30%
+    ),
+    #edf6fb;
+}
+
+.light .theme-card,
+[data-theme="light"] .theme-card {
+  background:
+    rgba(255, 255, 255, 0.68);
+
+  border-color:
+    rgba(71, 105, 125, 0.14);
+
+  box-shadow:
+    0 12px 40px rgba(71, 105, 125, 0.07);
+}
+
+.light .theme-card:hover,
+[data-theme="light"] .theme-card:hover {
+  background:
+    rgba(255, 255, 255, 0.82);
+
+  border-color:
+    rgba(0, 143, 131, 0.38);
+
+  box-shadow:
+    0 22px 55px rgba(71, 105, 125, 0.12);
+}
+
+.light header,
+[data-theme="light"] header {
+  background:
+    rgba(255, 255, 255, 0.68);
+
+  border-bottom-color:
+    rgba(71, 105, 125, 0.13);
+
+  box-shadow:
+    0 8px 30px rgba(71, 105, 125, 0.04);
+}
+
+.light nav a,
+[data-theme="light"] nav a {
+  color: #475569;
+}
+
+.light nav a:hover,
+[data-theme="light"] nav a:hover {
+  color: #008f83;
+}
+/* =========================================================
+   46. LIGHT MODE — MOBILE MENU
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+  .light nav,
+  [data-theme="light"] nav {
+    background:
+      rgba(255, 255, 255, 0.92);
+
+    border-bottom:
+      1px solid rgba(71, 105, 125, 0.14);
+
+    backdrop-filter:
+      blur(22px);
+  }
+
+  .light nav a,
+  [data-theme="light"] nav a {
+    color: #0f172a;
+  }
+
+  .light nav a:hover,
+  [data-theme="light"] nav a:hover {
+    color: #008f83;
+  }
+}
+
+
+/* =========================================================
+   47. LIGHT MODE — FORM CONTROLS
+   ========================================================= */
+
+.light .contact-form input,
+.light .contact-form select,
+.light .contact-form textarea,
+[data-theme="light"] .contact-form input,
+[data-theme="light"] .contact-form select,
+[data-theme="light"] .contact-form textarea {
+  background:
+    rgba(255, 255, 255, 0.70);
+
+  color:
+    #0b1220;
+
+  border-color:
+    rgba(71, 105, 125, 0.15);
+}
+
+.light .contact-form input::placeholder,
+.light .contact-form textarea::placeholder,
+[data-theme="light"] .contact-form input::placeholder,
+[data-theme="light"] .contact-form textarea::placeholder {
+  color:
+    #64748b;
+}
+
+
+/* =========================================================
+   48. LIGHT MODE — 3D SOFT ATMOSPHERE
+   ========================================================= */
+
+.light canvas,
+[data-theme="light"] canvas {
+  filter:
+    saturate(0.88)
+    brightness(1.06);
+}
+
+
+/* =========================================================
+   49. LIGHT MODE — TEXT SAFETY
+   ========================================================= */
+
+.light .text-white,
+[data-theme="light"] .text-white {
+  color: #0b1220;
+}
+
+.light .text-gray-300,
+[data-theme="light"] .text-gray-300 {
+  color: #334155;
+}
+
+.light .text-gray-400,
+[data-theme="light"] .text-gray-400 {
+  color: #475569;
+}
+
+.light .text-gray-500,
+[data-theme="light"] .text-gray-500 {
+  color: #64748b;
+}
+
+
+/* =========================================================
+   50. FINAL THEME TRANSITION
+   ========================================================= */
+
+html,
+body,
+header,
+main,
+section,
+footer,
+article,
+aside,
+nav,
+button,
+input,
+textarea,
+select,
+.theme-card,
+.skill-card,
+.project-card,
+.service-card,
+.stat-card,
+.testimonial-content {
+  transition:
+    background-color 350ms ease,
+    border-color 350ms ease,
+    color 350ms ease,
+    box-shadow 350ms ease;
+}
+/* =========================================================
+   LIGHT MODE — VISIBILITY & CONTRAST FIX
+   Dark mode is NOT changed by these rules.
+   ========================================================= */
+
+.light {
+  --background: #eef7fb;
+  --foreground: #0f172a;
+  --paper: #0f172a;
+  --paper-muted: #334155;
+  --surface: rgba(255, 255, 255, 0.78);
+  --surface-solid: #ffffff;
+  --border-light: rgba(15, 23, 42, 0.12);
+  --accent-light: #008f83;
+  --accent-light-bright: #00a99d;
+}
+
+/* ---------- PAGE ---------- */
+
+.light body {
+  background: #eef7fb !important;
+  color: #0f172a !important;
+}
+
+/* ---------- TEXT ---------- */
+
+.light,
+.light main,
+.light section,
+.light div,
+.light p,
+.light span,
+.light li {
+  border-color: rgba(15, 23, 42, 0.10);
+}
+
+.light .text-paper {
+  color: #0f172a !important;
+}
+
+.light .text-paper\/70 {
+  color: rgba(15, 23, 42, 0.72) !important;
+}
+
+.light .text-paper\/60 {
+  color: rgba(15, 23, 42, 0.62) !important;
+}
+
+.light .text-paper\/50 {
+  color: rgba(15, 23, 42, 0.52) !important;
+}
+
+.light .text-navy {
+  color: #0f172a !important;
+}
+
+/* ---------- HEADINGS ---------- */
+
+.light h1,
+.light h2,
+.light h3,
+.light h4,
+.light h5,
+.light h6 {
+  color: #0f172a !important;
+}
+
+/* ---------- NORMAL PARAGRAPHS ---------- */
+
+.light p {
+  color: #334155;
+}
+
+/* ---------- LINKS ---------- */
+
+.light a {
+  color: inherit;
+}
+
+/* ---------- CARDS ---------- */
+
+.light .card,
+.light [class*="card"] {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(15, 23, 42, 0.10);
+  color: #0f172a;
+}
+
+/* ---------- BORDERS ---------- */
+
+.light .border-slate-line {
+  border-color: rgba(15, 23, 42, 0.14) !important;
+}
+
+/* ---------- ACCENT ---------- */
+
+.light .text-accent {
+  color: #008f83 !important;
+}
+
+.light .bg-accent {
+  background-color: #008f83 !important;
+  color: #ffffff !important;
+}
+
+.light .hover\:bg-accent-bright:hover {
+  background-color: #00a99d !important;
+}
+
+/* ---------- BUTTONS ---------- */
+
+.light button {
+  color: #0f172a;
+}
+
+.light .border {
+  border-color: rgba(15, 23, 42, 0.14);
+}
+
+/* ---------- IMAGES ---------- */
+
+.light img {
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+}
+
+/* ---------- SVG / ICONS ---------- */
+
+.light svg {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Icons that were white in dark mode */
+.light .text-white,
+.light .text-paper svg {
+  color: #0f172a;
+}
+
+/* ---------- NAVIGATION ---------- */
+
+.light nav {
+  color: #0f172a;
+}
+
+.light nav a {
+  color: #0f172a;
+}
+
+.light nav a:hover {
+  color: #008f83;
+}
+
+/* ---------- NAVIGATION PANEL ---------- */
+
+.light .navigation-panel,
+.light [class*="navigation-panel"] {
+  background: rgba(255, 255, 255, 0.96);
+  color: #0f172a;
+  border-color: rgba(15, 23, 42, 0.12);
+}
+
+/* ---------- INPUTS ---------- */
+
+.light input,
+.light textarea,
+.light select {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.16) !important;
+}
+
+.light input::placeholder,
+.light textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* ---------- SELECTION ---------- */
+
+.light ::selection {
+  background: rgba(0, 143, 131, 0.22);
+  color: #0f172a;
+}
+
+/* ---------- GRID BACKGROUND ---------- */
+
+.light .bg-grid-glow {
+  background-color: #eef7fb !important;
+}
+
+/* ---------- MUTED TEXT ---------- */
+
+.light .text-slate-400 {
+  color: #64748b !important;
+}
+
+.light .text-slate-500 {
+  color: #475569 !important;
+}
+
+.light .text-slate-600 {
+  color: #334155 !important;
+}
+
+/* ---------- GLASS EFFECTS ---------- */
+
+.light .glass,
+.light [class*="glass"] {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(15, 23, 42, 0.10);
+  color: #0f172a;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* ---------- FOOTER ---------- */
+
+.light footer {
+  color: #0f172a;
+}
+
+.light footer p,
+.light footer span {
+  color: #475569;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 768px) {
+  .light .text-paper\/70 {
+    color: rgba(15, 23, 42, 0.75) !important;
+  }
+  .light .text-paper\/60 {
+    color: rgba(15, 23, 42, 0.65) !important;
+  }
+}
