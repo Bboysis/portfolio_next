@@ -42,7 +42,9 @@ pnpm dev
 
 portfolio_next/
 ├── app/                # Next.js App Router
-│   ├── about/         # About page
+│   ├── about/          # About page
+|   |--- resume         # resume part   
+|   |--- experience     #experience part
 │   ├── contact/       # Contact page
 │   ├── projects/      # Projects page
 │   └── page.js        # Homepage

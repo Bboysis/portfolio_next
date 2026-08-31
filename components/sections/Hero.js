@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-
+import TextReveal from "../TextReveal";
 // Load the 3D scene only in the browser.
 // This prevents Three.js from running during server rendering.
 const HeroScene = dynamic(
@@ -177,29 +177,23 @@ export default function Hero() {
               light:text-navy/80
             "
           >
-            Sisay Abebayew
-          </p>
+           </p>
 
           {/* =====================================
               DESCRIPTION
           ===================================== */}
-          <p
-            className="
-              mt-5
-              max-w-xl
-              text-base
-              leading-7
-              text-paper/65
-              sm:text-lg
-              sm:leading-8
-              light:text-navy/65
-            "
-          >
-            I build complete, practical, and user-friendly digital
-            solutions that turn ideas into real, functional applications.
-            From modern websites to full-stack management systems,
-            I focus on solving real problems with clean technology.
-          </p>
+           <TextReveal delay={100}>
+  <h1 className="font-display text-4xl font-bold leading-tight text-paper sm:text-5xl lg:text-6xl light:text-navy">
+    Sisay Abebayew
+  </h1>
+</TextReveal>
+            <TextReveal delay={250}>
+  <p className="mt-6 max-w-md text-lg text-paper/70 light:text-navy/70">
+    I build complete, practical, and user-friendly digital solutions
+    that turn ideas into real, functional applications.
+  </p>
+</TextReveal>
+           
 
           {/* =====================================
               CTA BUTTONS

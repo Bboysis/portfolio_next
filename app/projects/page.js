@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { projects } from "@/data/projects";
-
-export const metadata = {
+import DeveloperDashboard from "@/components/DeveloperDashboard";
+ export const metadata = {
   title: "Projects — Sisay Abebayew",
   description: "A complete collection of full-stack systems and websites I've built.",
 };
-
-export default function ProjectsPage() {
+ export default function ProjectsPage() {
   return (
     <div className="section-container py-24">
       <p className="eyebrow mb-3">Full Collection</p>
@@ -35,7 +34,7 @@ export default function ProjectsPage() {
                 </span>
               )}
             </div>
-            <h3 className="mt-3 font-display text-lg font-semibold text-paper light:text-navy">
+             <h3 className="mt-3 font-display text-lg font-semibold text-paper light:text-navy">
               {project.title}
             </h3>
             <p className="mt-3 text-sm text-paper/60 light:text-navy/60">
@@ -50,10 +49,13 @@ export default function ProjectsPage() {
                   {tech}
                 </span>
               ))}
-            </div>
+             </div>
+             
           </Link>
+          
         ))}
       </div>
+      <DeveloperDashboard/>
     </div>
   );
 }

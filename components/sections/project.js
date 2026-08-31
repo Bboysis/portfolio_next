@@ -1,7 +1,9 @@
-"use client";
+ "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-
+import ProjectModal from "@/components/ui/ProjectModal";
+import ProjectTilt from "../ProjectTilt";
 const projects = [
   {
     number: "01",
@@ -13,8 +15,8 @@ const projects = [
     status: "Completed",
     liveUrl: "#",
     githubUrl: "#",
+    image: "/images/coder.jpg",
   },
-
   {
     number: "02",
     title: "SIS Missford School Management",
@@ -25,10 +27,8 @@ const projects = [
     status: "Completed",
     liveUrl: "https://trinity-hotel.infinityfree.io",
     githubUrl: "#",
-        image: "/images/coder.jpg",
-
+    image: "/images/coder.jpg",
   },
-
   {
     number: "03",
     title: "Hotel Management System",
@@ -39,8 +39,8 @@ const projects = [
     status: "Completed",
     liveUrl: "https://trinity-hotel.infinityfree.io",
     githubUrl: "#",
+    image: "/images/coder.jpg",
   },
-
   {
     number: "04",
     title: "E-Commerce Website",
@@ -51,8 +51,8 @@ const projects = [
     status: "Completed",
     liveUrl: "#",
     githubUrl: "#",
+    image: "/images/coder.jpg",
   },
-
   {
     number: "05",
     title: "Personal Gym Trainer Website",
@@ -63,8 +63,8 @@ const projects = [
     status: "Completed",
     liveUrl: "#",
     githubUrl: "#",
+    image: "/images/coder.jpg",
   },
-
   {
     number: "06",
     title: "QR Menu System",
@@ -75,6 +75,7 @@ const projects = [
     status: "Completed",
     liveUrl: "#",
     githubUrl: "#",
+    image: "/images/coder.jpg",
   },
 ];
 
@@ -100,335 +101,401 @@ function ProjectIcon() {
 }
 
 export default function Projects() {
+  const [selectedProject, setSelectedProject] = useState(null);
+
   return (
-    <section
-      id="projects"
-      className="relative overflow-hidden py-24 sm:py-32"
+    <>
+      <section
+        id="projects"
+        className="relative overflow-hidden py-24 sm:py-32"
+      >
+        {/* Background glow */}
+        <div className="pointer-events-none absolute right-0 top-40 h-80 w-80 rounded-full bg-accent/10 blur-[130px]" />
+
+        <div className="section-container relative z-10">
+          {/* Heading */}
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="eyebrow mb-4">
+              Featured Projects
+            </p>
+
+            <h2 className="font-display text-3xl font-bold text-paper sm:text-4xl lg:text-5xl light:text-navy">
+              Turning Ideas Into
+              <span className="text-accent"> Real Solutions</span>
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-paper/60 sm:text-lg light:text-navy/60">
+              A selection of projects I have designed and developed,
+              focused on solving practical problems through technology.
+            </p>
+          </div>
+
+          {/* Projects */}
+           {projects.map((project) => (
+  <ProjectTilt
+    key={project.number}
+    className="group"
+  >
+    <article
+      className="
+        relative
+        overflow-hidden
+        rounded-3xl
+        border
+        border-slate-line
+        bg-white/[0.03]
+        backdrop-blur-md
+        transition-all
+        duration-500
+        hover:border-accent/40
+        hover:shadow-2xl
+        hover:shadow-accent/10
+      "
     >
-      {/* Background glow */}
-      <div className="pointer-events-none absolute right-0 top-40 h-80 w-80 rounded-full bg-accent/10 blur-[130px]" />
-
-      <div className="section-container relative z-10">
-
-        {/* Heading */}
-        <div className="mx-auto max-w-3xl text-center">
-
-          <p className="eyebrow mb-4">
-            Featured Projects
-          </p>
-
-          <h2 className="font-display text-3xl font-bold text-paper sm:text-4xl lg:text-5xl light:text-navy">
-            Turning Ideas Into
-            <span className="text-accent"> Real Solutions</span>
-          </h2>
-
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-paper/60 sm:text-lg light:text-navy/60">
-            A selection of projects I have designed and developed,
-            focused on solving practical problems through technology.
-          </p>
-
-        </div>
-
-        {/* Projects */}
-        <div className="mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-2">
-        {projects.map((project) => (
-            <article
-              key={project.number}
-              className="
-                group
-                relative
-                overflow-hidden
-                rounded-3xl
-                border
-                border-slate-line
-                bg-white/[0.03]
-                backdrop-blur-md
-                transition-all
-                duration-500
-                hover:-translate-y-2
-                hover:border-accent/40
-                hover:shadow-2xl
-                hover:shadow-accent/10
-              "
-            >
-
-              {/* Top visual area */}
-              <div
-                className="
-                  relative
-                  flex
-                  h-52
-                  items-center
-                  justify-center
-                  overflow-hidden
-                  border-b
-                  border-slate-line
-                  bg-gradient-to-br
-                  from-accent/[0.08]
-                  via-transparent
-                  to-white/[0.02]
-                "
-              >
-
-                {/* Decorative grid */}
-                <div
-                  className="
-                    absolute
-                    inset-0
-                    opacity-20
-                    [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)]
-                    [background-size:32px_32px]
-                  "
-                />
-
-                {/* Glow */}
-                <div
-                  className="
-                    absolute
-                    h-32
-                    w-32
-                    rounded-full
-                    bg-accent/20
-                    blur-3xl
-                    transition-all
-                    duration-500
-                    group-hover:h-44
-                    group-hover:w-44
-                  "
-                />
-
-                {/* Project icon */}
+                {/* Top visual area */}
                 <div
                   className="
                     relative
                     flex
-                    h-20
-                    w-20
+                    h-52
                     items-center
                     justify-center
-                    rounded-2xl
-                    border
-                    border-accent/30
-                    bg-navy/60
-                    text-accent
-                    shadow-xl
-                    shadow-accent/10
-                    backdrop-blur-xl
-                    transition-all
-                    duration-500
-                    group-hover:rotate-3
-                    group-hover:scale-110
+                    overflow-hidden
+                    border-b
+                    border-slate-line
+                    bg-gradient-to-br
+                    from-accent/[0.08]
+                    via-transparent
+                    to-white/[0.02]
                   "
                 >
-                  <ProjectIcon />
+                  {/* Decorative grid */}
+                  <div
+                    className="
+                      absolute
+                      inset-0
+                      opacity-20
+                      [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)]
+                      [background-size:32px_32px]
+                    "
+                  />
+
+                  {/* Glow */}
+                  <div
+                    className="
+                      absolute
+                      h-32
+                      w-32
+                      rounded-full
+                      bg-accent/20
+                      blur-3xl
+                      transition-all
+                      duration-500
+                      group-hover:h-44
+                      group-hover:w-44
+                    "
+                  />
+
+                  {/* Project icon */}
+                  <div
+                    className="
+                      relative
+                      flex
+                      h-20
+                      w-20
+                      items-center
+                      justify-center
+                      rounded-2xl
+                      border
+                      border-accent/30
+                      bg-navy/60
+                      text-accent
+                      shadow-xl
+                      shadow-accent/10
+                      backdrop-blur-xl
+                      transition-all
+                      duration-500
+                      group-hover:rotate-3
+                      group-hover:scale-110
+                    "
+                  >
+                    <ProjectIcon />
+                  </div>
+
+                  {/* Project number */}
+                  <span
+                    className="
+                      absolute
+                      right-5
+                      top-5
+                      font-mono
+                      text-xs
+                      tracking-widest
+                      text-accent/60
+                    "
+                  >
+                    {project.number}
+                  </span>
+
+                  {/* Status */}
+                  <span
+                    className="
+                    absolute
+                      bottom-5
+                      left-5
+                      rounded-full
+                      border
+                      border-accent/20
+                      bg-accent/10
+                      px-3
+                      py-1
+                      text-[11px]
+                      font-medium
+                      text-accent
+                    "
+                  >
+                    {project.status}
+                  </span>
+
+                  {/* Preview icon */}
+                  <button
+                    onClick={() => setSelectedProject(project)}
+                    aria-label={`Preview ${project.title}`}
+                    className="
+                      absolute
+                      bottom-5
+                      right-5
+                      flex
+                      h-10
+                      w-10
+                      items-center
+                      justify-center
+                      rounded-full
+                      border
+                      border-accent/30
+                      bg-navy/70
+                      text-accent
+                      backdrop-blur-md
+                      transition-all
+                      duration-300
+                      hover:scale-110
+                      hover:bg-accent
+                      hover:text-navy
+                      light:bg-white/80
+                    "
+                  >
+                    ↗
+                  </button>
                 </div>
 
-                {/* Project number */}
-                <span
-                  className="
-                    absolute
-                    right-5
-                    top-5
-                    font-mono
-                    text-xs
-                    tracking-widest
-                    text-accent/60
-                  "
-                >
-                  {project.number}
-                </span>
+                {/* Content */}
+                <div className="p-6 sm:p-7">
+                  {/* Category */}
+                  <p className="text-xs font-medium uppercase tracking-[0.16em] text-accent/70">
+                    {project.category}
+                  </p>
 
-                {/* Status */}
-                <span
-                  className="
-                    absolute
-                    bottom-5
-                    left-5
-                    rounded-full
-                    border
-                    border-accent/20
-                    bg-accent/10
-                    px-3
-                    py-1
-                    text-[11px]
-                    font-medium
-                    text-accent
-                  "
-                >
-                  {project.status}
-                </span>
+                  {/* Title */}
+                  <h3 className="mt-3 font-display text-2xl font-bold text-paper light:text-navy">
+                    {project.title}
+                  </h3>
 
-              </div>
+                  {/* Description */}
+                  <p className="mt-4 text-sm leading-6 text-paper/55 light:text-navy/55">
+                    {project.description}
+                  </p>
 
-              {/* Content */}
-              <div className="p-6 sm:p-7">
-
-                {/* Category */}
-                <p className="text-xs font-medium uppercase tracking-[0.16em] text-accent/70">
-                  {project.category}
-                </p>
-                {/* Title */}
-                <h3 className="mt-3 font-display text-2xl font-bold text-paper light:text-navy">
-                  {project.title}
-                </h3>
-
-                {/* Description */}
-                <p className="mt-4 text-sm leading-6 text-paper/55 light:text-navy/55">
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="mt-6 flex flex-wrap gap-2">
-
-                  {project.technologies.map((technology) => (
-                    <span
-                      key={technology}
-                      className="
-                        rounded-full
-                        border
-                        border-slate-line
-                        bg-white/[0.03]
-                        px-3
-                        py-1.5
-                        text-xs
-                        text-paper/65
-                        transition
-                        group-hover:border-accent/20
-                        light:text-navy/65
-                      "
-                    >
-                      {technology}
-                    </span>
-                  ))}
-
-                </div>
-
-                {/* Buttons */}
-                <div className="mt-7 flex flex-wrap gap-3">
-
-                  {project.liveUrl !== "#" && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="
-                        inline-flex
-                        items-center
-                        gap-2
-                        rounded-full
-                        bg-accent
-                        px-5
-                        py-2.5
-                        text-xs
-                        font-semibold
-                        text-navy
-                        transition-all
-                        hover:scale-105
-                        hover:bg-accent-bright
-                      "
-                    >
-                      Live Demo
-
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                  {/* Technologies */}
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {project.technologies.map((technology) => (
+                      <span
+                        key={technology}
+                        className="
+                          rounded-full
+                          border
+                          border-slate-line
+                          bg-white/[0.03]
+                          px-3
+                          py-1.5
+                          text-xs
+                          text-paper/65
+                          transition
+                          group-hover:border-accent/20
+                          group-hover:text-accent
+                          light:text-navy/65
+                        "
                       >
-                        <path d="M7 17 17 7" />
-                        <path d="M7 7h10v10" />
-                      </svg>
-                    </a>
-                  )}
+                        {technology}
+                      </span>
+                    ))}
+                  </div>
 
-                  {project.githubUrl !== "#" && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                  {/* Buttons */}
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    {/* Preview Project */}
+                    <button
+                      onClick={() => setSelectedProject(project)}
                       className="
                         inline-flex
                         items-center
                         gap-2
                         rounded-full
                         border
-                        border-slate-line
+                        border-accent/30
+                        bg-accent/10
                         px-5
                         py-2.5
                         text-xs
                         font-semibold
-                        text-paper
+                        text-accent
                         transition-all
-                        hover:border-accent
-                        hover:text-accent
-                        light:text-navy
+                        duration-300
+                        hover:scale-105
+                        hover:bg-accent
+                        hover:text-navy
                       "
                     >
-                      GitHub
-                    </a>
-                  )}
-
-                  {project.liveUrl === "#" &&
-                    project.githubUrl === "#" && (
-                      <span className="text-xs text-paper/30 light:text-navy/30">
-                        Links coming soon
+                      Preview Project
+                      <span className="transition-transform duration-300">
+                        →
                       </span>
+                    </button>
+
+                    {/* Live Demo */}
+                    {project.liveUrl !== "#" && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="
+                          inline-flex
+                          items-center
+                          gap-2
+                          rounded-full
+                          bg-accent
+                          px-5
+                          py-2.5
+                          text-xs
+                          font-semibold
+                          text-navy
+                          transition-all
+                          hover:scale-105
+                          hover:bg-accent-bright
+                        "
+                      >
+                        Live Demo
+
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M7 17 17 7" />
+                          <path d="M7 7h10v10" />
+                        </svg>
+                      </a>
                     )}
 
+                    {/* GitHub */}
+                    {project.githubUrl !== "#" && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="
+                          inline-flex
+                          items-center
+                          gap-2
+                          rounded-full
+                          border
+                          border-slate-line
+                          px-5
+                          py-2.5
+                          text-xs
+                          font-semibold
+                          text-paper
+                          transition-all
+                          hover:border-accent
+                          hover:text-accent
+                          light:text-navy
+                        "
+                      >
+                        GitHub
+                      </a>
+                    )}
+                  </div>
                 </div>
 
-              </div>
-            </article>
-          ))}
+                {/* Bottom accent line */}
+                <div
+                  className="
+                    absolute
+                    bottom-0
+                    left-0
+                    h-[2px]
+                    w-0
+                    bg-accent
+                    transition-all
+                    duration-500
+                    group-hover:w-full
+                  "
+                />
+              </article>
+              </ProjectTilt>
+            ))}
+          </div>
 
-        </div>
-
-        {/* View all */}
-        <div className="mt-14 text-center">
+          {/* View all */}
+          <div className="mt-14 text-center">
             <Link
-            href="/projects"
-            className="
-              inline-flex
-              items-center
-              gap-2
-              rounded-full
-              border
-              border-slate-line
-              px-6
-              py-3
-              text-sm
-              font-semibold
-              text-paper
-              transition-all
-              hover:border-accent
-              hover:text-accent
-              light:text-navy
-            "
-          >
-            View All Projects
-
-            <svg
-              width="17"
-              height="17"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              href="/projects"
+              className="
+                inline-flex
+                items-center
+                gap-2
+                rounded-full
+                border
+                border-slate-line
+                px-6
+                py-3
+                text-sm
+                font-semibold
+                text-paper
+                transition-all
+                hover:border-accent
+                hover:text-accent
+                light:text-navy
+              "
             >
-              <path d="M5 12h14" />
-              <path d="m13 6 6 6-6 6" />
-            </svg>
-          </Link>
+              View All Projects
 
-        </div>
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M5 12h14" />
+                <path d="m13 6 6 6-6 6" />
+              </svg>
+            </Link>
+          </div>
+         
+      </section>
 
-      </div>
-    </section>
+      {/* Project Preview Modal */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
+    </>
   );
 }

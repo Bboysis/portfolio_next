@@ -1,339 +1,415 @@
  "use client";
 
-import Reveal from "@/components/ui/Reveal";
+import { useState } from "react";
 
-const skillGroups = [
+const skills = [
   {
-    number: "01",
-    title: "Frontend Development",
-    description:
-      "Building responsive, modern and interactive user interfaces.",
-    skills: [
-      "HTML5",
-      "CSS3",
-      "JavaScript",
-      "React",
-      "Next.js",
-      "Tailwind CSS",
-    ],
+    name: "HTML5",
+    category: "Frontend",
+    level: 95,
+    icon: "🌐",
+    description: "Semantic and responsive web structure.",
   },
   {
-    number: "02",
-    title: "Backend Development",
-    description:
-      "Creating reliable application logic, APIs and business systems.",
-    skills: [
-      "PHP",
-      "Node.js",
-      "REST API",
-      "Authentication",
-      "API Integration",
-    ],
+    name: "CSS3",
+    category: "Frontend",
+    level: 90,
+    icon: "🎨",
+    description: "Modern responsive layouts and animations.",
   },
   {
-    number: "03",
-    title: "Database & Systems",
-    description:
-      "Designing structured databases and practical management systems.",
-    skills: [
-      "MySQL",
-      "SQL",
-      "Database Design",
-      "ER Diagrams",
-      "CRUD Systems",
-    ],
+    name: "JavaScript",
+    category: "Frontend",
+    level: 85,
+    icon: "⚡",
+    description: "Interactive and dynamic web applications.",
   },
   {
-    number: "04",
-    title: "Programming",
-    description:
-      "Using programming fundamentals to solve real-world problems.",
-    skills: [
-      "JavaScript",
-      "PHP",
-      "C++",
-      "Java",
-      "Python",
-    ],
+    name: "React",
+    category: "Frontend",
+    level: 75,
+    icon: "⚛️",
+    description: "Component-based user interfaces.",
   },
   {
-    number: "05",
-    title: "Tools & Workflow",
-    description:
-      "Tools I use to build, test, manage and deploy projects.",
-    skills: [
-      "Git",
-      "GitHub",
-      "VS Code",
-      "XAMPP",
-      "Netlify",
-    ],
+    name: "Next.js",
+    category: "Frontend",
+    level: 70,
+    icon: "▲",
+    description: "Modern React applications and performance.",
   },
   {
-    number: "06",
-    title: "Digital Solutions",
-    description:
-      "Turning ideas into complete, useful and scalable digital products.",
-    skills: [
-      "UI/UX",
-      "Responsive Design",
-      "SEO",
-      "System Design",
-      "Performance",
-    ],
+    name: "PHP",
+    category: "Backend",
+    level: 85,
+    icon: "🐘",
+    description: "Server-side applications and web systems.",
+  },
+  {
+    name: "MySQL",
+    category: "Database",
+    level: 85,
+    icon: "🗄️",
+    description: "Relational database design and management.",
+  },
+  {
+    name: "SQL",
+    category: "Database",
+    level: 80,
+    icon: "📊",
+    description: "Database queries and data management.",
+  },
+  {
+    name: "Git",
+    category: "Tools",
+    level: 75,
+    icon: "🔧",
+    description: "Version control and project management.",
+  },
+  {
+    name: "GitHub",
+    category: "Tools",
+    level: 75,
+    icon: "🐙",
+    description: "Code hosting and collaboration.",
+  },
+  {
+    name: "VS Code",
+    category: "Tools",
+    level: 90,
+    icon: "💻",
+    description: "Professional development environment.",
+  },
+  {
+    name: "Bootstrap",
+    category: "Frontend",
+    level: 80,
+    icon: "🅱️",
+    description: "Responsive and modern user interfaces.",
   },
 ];
 
+const categories = [
+  "All",
+  "Frontend",
+  "Backend",
+  "Database",
+  "Tools",
+];
+
 export default function SkillsGrid() {
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filteredSkills =
+    activeCategory === "All"
+      ? skills
+      : skills.filter(
+          (skill) => skill.category === activeCategory
+        );
+
   return (
     <section
       id="skills"
       className="relative overflow-hidden py-24 sm:py-32"
     >
       {/* Background glow */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-1/3
-          h-[500px]
-          w-[500px]
-          -translate-x-1/2
-          rounded-full
-          bg-accent/[0.06]
-          blur-[140px]
-        "
-      />
+      <div className="pointer-events-none absolute right-0 top-1/4 h-96 w-96 rounded-full bg-accent/10 blur-[150px]" />
 
       <div className="section-container relative z-10">
 
-        {/* =========================
-            SECTION HEADER
-        ========================== */}
+        {/* ================= Heading ================= */}
 
-        <Reveal
-          className="mx-auto max-w-3xl text-center"
-          direction="up"
-        >
-          <div className="mb-5 flex items-center justify-center gap-3">
-            <span className="h-px w-10 bg-accent/50" />
+        <div className="mx-auto max-w-3xl text-center">
 
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
-              Expertise
-            </p>
+          <p className="eyebrow mb-4">
+            Technical Expertise
+          </p>
 
-            <span className="h-px w-10 bg-accent/50" />
-          </div>
-
-          <h2 className="font-display text-3xl font-bold tracking-tight text-paper sm:text-4xl lg:text-5xl">
-            Skills That Turn
-            <span className="text-accent"> Ideas Into Reality</span>
+          <h2 className="font-display text-3xl font-bold text-paper sm:text-4xl lg:text-5xl light:text-navy">
+            Skills &{" "}
+            <span className="text-accent">
+              Technologies
+            </span>
           </h2>
 
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-paper/55 sm:text-lg light:text-navy/60">
-            A practical combination of development, system design and
-            problem-solving skills used to build complete digital solutions.
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-paper/60 sm:text-lg light:text-navy/60">
+            A growing collection of technologies and tools I use
+            to design, build, and improve modern digital solutions.
           </p>
-        </Reveal>
 
-        {/* =========================
-            SKILLS GRID
-        ========================== */}
+        </div>
 
-        <div className="mx-auto mt-16 grid max-w-6xl gap-5 md:grid-cols-2 lg:grid-cols-3">
 
-          {skillGroups.map((group, index) => (
-            <Reveal
-              key={group.number}
-              delay={index * 100}
-              direction="up"
-            >
-              <div
-                className="
-                  group
-                  relative
-                  h-full
-                  overflow-hidden
-                  rounded-3xl
+        {/* ================= Filters ================= */}
+
+        <div className="mt-12 flex flex-wrap justify-center gap-3">
+
+          {categories.map((category) => {
+
+            const active =
+              activeCategory === category;
+
+            return (
+              <button
+                key={category}
+                onClick={() =>
+                  setActiveCategory(category)
+                }
+                className={`
+                  rounded-full
                   border
-                  border-slate-line
-                  bg-white/[0.025]
-                  p-7
-                  backdrop-blur-xl
+                  px-5
+                  py-2.5
+                  text-sm
+                  font-medium
                   transition-all
-                  duration-500
-                  hover:-translate-y-2
-                  hover:border-accent/40
-                  hover:bg-accent/[0.035]
-                  hover:shadow-2xl
-                  hover:shadow-accent/10
-                "
+                  duration-300
+                  ${
+                    active
+                      ? "border-accent bg-accent text-navy shadow-lg shadow-accent/20"
+                      : "border-slate-line bg-white/[0.03] text-paper/70 hover:border-accent/50 hover:text-accent light:text-navy/70"
+                  }
+                `}
               >
+                {category}
+              </button>
+            );
+          })}
 
-                {/* Card glow */}
-                <div
-                  className="
-                    pointer-events-none
-                    absolute
-                    -right-20
-                    -top-20
-                    h-40
-                    w-40
-                    rounded-full
-                    bg-accent/10
-                    opacity-0
-                    blur-3xl
-                    transition
-                    duration-500
-                    group-hover:opacity-100
-                  "
-                />
+        </div>
 
-                {/* Number + Arrow */}
-                <div className="relative flex items-center justify-between">
 
-                  <span
-                    className="
-                      font-mono
-                      text-xs
-                      font-semibold
-                      tracking-[0.2em]
-                      text-accent/70
-                    "
-                  >
-                    {group.number}
+        {/* ================= Skills Grid ================= */}
+
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+          {filteredSkills.map((skill) => (
+
+            <article
+              key={skill.name}
+              className="
+                group
+                relative
+                overflow-hidden
+                rounded-2xl
+                border
+                border-slate-line
+                bg-white/[0.03]
+                p-6
+                backdrop-blur-md
+                transition-all
+                duration-500
+                hover:-translate-y-2
+                hover:border-accent/40
+                hover:bg-accent/[0.04]
+                hover:shadow-2xl
+                hover:shadow-accent/10
+              "
+            >
+
+              {/* Hover glow */}
+
+              <div className="
+                pointer-events-none
+                absolute
+                -right-16
+                -top-16
+                h-40
+                w-40
+                rounded-full
+                bg-accent/10
+                blur-3xl
+                opacity-0
+                transition-opacity
+                duration-500
+                group-hover:opacity-100
+              " />
+
+
+              {/* Top section */}
+
+              <div className="
+                relative
+                flex
+                items-start
+                justify-between
+                gap-4
+              ">
+
+                {/* Icon */}
+
+                <div className="
+                  flex
+                  h-14
+                  w-14
+                  items-center
+                  justify-center
+                  rounded-2xl
+                  border
+                  border-accent/20
+                  bg-accent/10
+                  text-2xl
+                  transition-transform
+                  duration-500
+                  group-hover:scale-110
+                  group-hover:rotate-3
+                ">
+                  {skill.icon}
+                </div>
+
+
+                {/* Percentage */}
+
+                <span className="
+                  rounded-full
+                  border
+                  border-accent/20
+                  bg-accent/10
+                  px-3
+                  py-1
+                  text-xs
+                  font-semibold
+                  text-accent
+                ">
+                  {skill.level}%
+                </span>
+
+              </div>
+
+
+              {/* Content */}
+
+              <div className="relative mt-6">
+
+                <p className="
+                  text-xs
+                  font-medium
+                  uppercase
+                  tracking-[0.16em]
+                  text-accent/80
+                ">
+                  {skill.category}
+                </p>
+
+
+                <h3 className="
+                  mt-2
+                  font-display
+                  text-xl
+                  font-bold
+                  text-paper
+                  light:text-navy
+                ">
+                  {skill.name}
+                </h3>
+
+
+                <p className="
+                  mt-3
+                  text-sm
+                  leading-6
+                  text-paper/55
+                  light:text-navy/55
+                ">
+                  {skill.description}
+                </p>
+
+              </div>
+
+
+              {/* Progress bar */}
+
+              <div className="relative mt-6">
+
+                <div className="
+                  mb-2
+                  flex
+                  justify-between
+                  text-xs
+                ">
+                  <span className="
+                    text-paper/45
+                    light:text-navy/45
+                  ">
+                    Proficiency
                   </span>
 
-                  <span
-                    className="
-                      flex
-                      h-9
-                      w-9
-                      items-center
-                      justify-center
-                      rounded-full
-                      border
-                      border-slate-line
-                      text-sm
-                      text-paper/30
-                      transition-all
-                      duration-500
-                      group-hover:rotate-45
-                      group-hover:border-accent/40
-                      group-hover:text-accent
-                    "
-                  >
-                    ↗
+                  <span className="text-accent">
+                    {skill.level}%
                   </span>
 
                 </div>
 
-                {/* Title */}
-                <h3
-                  className="
-                    relative
-                    mt-7
-                    font-display
-                    text-xl
-                    font-bold
-                    text-paper
-                    transition-colors
-                    duration-300
-                    group-hover:text-accent
-                    light:text-navy
-                  "
-                >
-                  {group.title}
-                </h3>
 
-                {/* Description */}
-                <p
-                  className="
-                    relative
-                    mt-3
-                    min-h-[48px]
-                    text-sm
-                    leading-6
-                    text-paper/45
-                    light:text-navy/50
-                  "
-                >
-                  {group.description}
-                </p>
+                <div className="
+                  h-2
+                  overflow-hidden
+                  rounded-full
+                  bg-white/10
+                  light:bg-navy/10
+                ">
 
-                {/* Divider */}
-                <div className="relative my-6 h-px bg-gradient-to-r from-accent/30 via-slate-line to-transparent" />
+                  <div
+                    className="
+                      h-full
+                      rounded-full
+                      bg-gradient-to-r
+                      from-accent
+                      to-accent-bright
+                      transition-all
+                      duration-1000
+                      ease-out
+                    "
+                    style={{
+                      width: `${skill.level}%`,
+                    }}
+                  />
 
-                {/* Skills */}
-                <div className="relative flex flex-wrap gap-2">
-
-                  {group.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="
-                        rounded-full
-                        border
-                        border-slate-line
-                        bg-black/10
-                        px-3
-                        py-1.5
-                        text-xs
-                        font-medium
-                        text-paper/55
-                        transition-all
-                        duration-300
-                        hover:border-accent/50
-                        hover:bg-accent/10
-                        hover:text-accent
-                        light:text-navy/60
-                      "
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                  </div>
-
-                {/* Bottom animated line */}
-                <div
-                  className="
-                    absolute
-                    bottom-0
-                    left-0
-                    h-[2px]
-                    w-0
-                    bg-accent
-                    transition-all
-                    duration-500
-                    group-hover:w-full
-                  "
-                />
+                </div>
 
               </div>
-            </Reveal>
+
+
+              {/* Bottom line */}
+
+              <div className="
+                absolute
+                bottom-0
+                left-0
+                h-[2px]
+                w-0
+                bg-accent
+                transition-all
+                duration-500
+                group-hover:w-full
+              " />
+
+            </article>
+
           ))}
 
         </div>
 
-        {/* =========================
-            BOTTOM MESSAGE
-        ========================== */}
 
-        <Reveal
-          className="mx-auto mt-14 max-w-3xl text-center"
-          delay={700}
-          direction="up"
-        >
-          <p className="text-sm text-paper/40 light:text-navy/40">
-            Always learning. Always building.
-          </p>
+        {/* Empty state */}
 
-          <div className="mt-4 flex items-center justify-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            <span className="h-1.5 w-1.5 rounded-full bg-accent/50" />
-            <span className="h-1.5 w-1.5 rounded-full bg-accent/20" />
+        {filteredSkills.length === 0 && (
+
+          <div className="
+            mt-12
+            rounded-2xl
+            border
+            border-slate-line
+            bg-white/[0.03]
+            p-10
+            text-center
+            text-paper/60
+            light:text-navy/60
+          ">
+            No skills found in this category.
           </div>
-        </Reveal>
+
+        )}
 
       </div>
     </section>

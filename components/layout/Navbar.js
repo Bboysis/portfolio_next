@@ -15,6 +15,9 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { MapIcon } from "lucide-react";
+import { TerminalIcon } from "lucide-react";
+import { Airplay } from "lucide-react";
 
 const navigation = [
   {
@@ -38,9 +41,19 @@ const navigation = [
     icon: BriefcaseBusiness,
   },
   {
+    name: "Terminal",
+    href: "/terminal",
+    icon: TerminalIcon,
+  },
+  {
     name: "Resume",
     href: "/resume",
     icon: FileText,
+  },
+   {
+    name: "Map",
+    href: "/map",
+    icon: MapIcon,
   },
   {
     name: "Contact",

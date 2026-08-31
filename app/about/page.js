@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Resume from "@/components/sections/Resume";
-import { timeline } from "@/data/experience";
+ import { timeline } from "@/data/experience";
+ import TechConstellation from "@/components/TechConstellation";
 export const metadata = {
   title: "About — Sisay Abebayew",
   description: "Full-Stack Developer & Digital Solutions Architect.",
@@ -71,8 +71,8 @@ export default function AboutPage() {
         </div>
       
       </div>
-       <Resume/>
-    </div>
+       <TechConstellation/>
+     </div>
     
   );
   

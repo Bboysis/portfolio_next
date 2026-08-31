@@ -2,33 +2,55 @@
 import FeaturedProjects from "@/components/sections/FeaturedProjects";
 import Stats from "@/components/sections/Stats";
 import SkillsGrid from "@/components/sections/SkillsGrid";
-import Experience from "@/components/sections/Experience";
-import CTA from "@/components/sections/CTA";
 import Testimonials from "@/components/sections/Testimonials";
 
-export default function Home() {
+import WebsiteMap from "@/components/WebsiteMap";
+import SmartWelcome from "@/components/SmartWelcome";
+import ScrollStory from "@/components/ScrollStory";
+import DynamicBackground from "@/components/DynamicBackground";
+import PortfolioAssistant from "../components/PortfolioAssistant";
+ export default function Home() {
   return (
-    <>
-      {/* Hero */}
-      <Hero />
+    <main className="relative min-h-screen overflow-x-hidden">
+      
+      {/* =========================================
+          DYNAMIC BACKGROUND
+          Fixed behind the entire website
+      ========================================= */}
+      <DynamicBackground />
 
-      {/* Featured Projects */}
-      <FeaturedProjects />
+      {/* =========================================
+          SCROLL STORY
+      ========================================= */}
+      <ScrollStory />
 
-      {/* Statistics */}
-      <Stats />
+      {/* =========================================
+          WEBSITE CONTENT
+      ========================================= */}
+      <div className="relative z-10">
+        
+        {/* Hero */}
+        <Hero />
 
-      {/* Skills */}
-      <SkillsGrid />
+        {/* Featured Projects */}
+        <FeaturedProjects />
 
-      {/* Experience & Education */}
-      <Experience />
+        {/* Statistics */}
+        <Stats />
 
-      {/* Call To Action */}
-      <CTA />
+        {/* Skills */}
+        <SkillsGrid />
+ 
+        {/* Website Map */}
+        <WebsiteMap />
 
-      {/* Testimonials */}
-      <Testimonials />
-    </>
+        {/* Testimonials */}
+        <Testimonials />
+<PortfolioAssistant/>
+      </div>
+ 
+      <SmartWelcome />
+<PortfolioAssistant/>
+    </main>
   );
 }

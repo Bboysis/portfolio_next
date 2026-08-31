@@ -2320,3 +2320,194 @@ select,
     color: rgba(15, 23, 42, 0.65) !important;
   }
 }
+/* =========================================
+   PROJECT 3D TILT
+========================================= */
+
+.project-tilt {
+  transform-style: preserve-3d;
+  transition:
+    transform 180ms ease-out,
+    filter 300ms ease;
+}
+
+.project-tilt:hover {
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .project-tilt {
+    transform: none !important;
+  }
+}
+/* =========================================
+   DYNAMIC WEBSITE BACKGROUND
+========================================= */
+
+.dynamic-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.dynamic-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+
+  border-radius: 999px;
+
+  background: var(--accent);
+
+  opacity: 0.35;
+
+  animation: floatingParticle 10s infinite ease-in-out;
+}
+
+/* Different particle positions */
+
+.particle-1 {
+  left: 8%;
+  top: 15%;
+}
+
+.particle-2 {
+  left: 20%;
+  top: 70%;
+  animation-delay: 1s;
+}
+
+.particle-3 {
+  left: 35%;
+  top: 30%;
+  animation-delay: 2s;
+}
+
+.particle-4 {
+  left: 50%;
+  top: 85%;
+  animation-delay: 3s;
+}
+
+.particle-5 {
+  left: 65%;
+  top: 20%;
+  animation-delay: 4s;
+}
+
+.particle-6 {
+  left: 80%;
+  top: 60%;
+  animation-delay: 5s;
+}
+
+.particle-7 {
+  left: 90%;
+  top: 10%;
+  animation-delay: 1.5s;
+}
+
+.particle-8 {
+  left: 12%;
+  top: 45%;
+  animation-delay: 2.5s;
+}
+
+.particle-9 {
+  left: 28%;
+  top: 90%;
+  animation-delay: 3.5s;
+}
+
+.particle-10 {
+  left: 45%;
+  top: 55%;
+  animation-delay: 4.5s;
+}
+
+.particle-11 {
+  left: 58%;
+  top: 12%;
+  animation-delay: 5.5s;
+}
+
+.particle-12 {
+  left: 73%;
+  top: 75%;
+  animation-delay: 6s;
+}
+
+.particle-13 {
+  left: 88%;
+  top: 40%;
+  animation-delay: 2.2s;
+}
+
+.particle-14 {
+  left: 5%;
+  top: 88%;
+  animation-delay: 3.2s;
+}
+
+.particle-15 {
+  left: 42%;
+  top: 18%;
+  animation-delay: 4.2s;
+}
+
+.particle-16 {
+  left: 55%;
+  top: 68%;
+  animation-delay: 5.2s;
+}
+
+.particle-17 {
+  left: 70%;
+  top: 38%;
+  animation-delay: 6.2s;
+}
+
+.particle-18 {
+  left: 95%;
+  top: 78%;
+  animation-delay: 1.8s;
+}
+
+.particle-19 {
+  left: 25%;
+  top: 5%;
+  animation-delay: 2.8s;
+}
+
+.particle-20 {
+  left: 78%;
+  top: 92%;
+  animation-delay: 4.8s;
+}
+
+
+/* Floating animation */
+
+@keyframes floatingParticle {
+  0% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.15;
+  }
+
+  50% {
+    transform: translateY(-35px) translateX(15px);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.15;
+  }
+}
+
+
+/* Light mode */
+
+.light .dynamic-particle {
+  opacity: 0.45;
+}

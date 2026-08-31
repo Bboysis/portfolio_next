@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Backtotop from "@/components/ui/Backtotop";
-import HireMeButton from "@/components/ui/HiremeButton";
+ import InteractiveBackground from "@/components/ui/InteractivBackground";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import CommandPalette from "@/components/ui/CommandPalette";
 import ScrollProgress from "../components/ui/ScrollProgress";
@@ -120,15 +120,14 @@ export default function RootLayout({ children }) {
         <ScrollProgress/>
         <LoadingScreen />
         <Navbar />
-
+<InteractiveBackground/>
         <main className="flex-1">
           {children}
         </main>
 
         <Footer />
 
-        <HireMeButton/>
-
+ 
         <Backtotop />
         <CommandPalette/>
       </body>
