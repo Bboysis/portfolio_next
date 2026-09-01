@@ -190,9 +190,9 @@ export default function PortfolioAssistant() {
       <div
         className={`
           fixed
-          bottom-24
-          right-5
-          z-[100]
+          bottom-32
+          right-4
+          z-[80]
           w-[calc(100vw-2.5rem)]
           max-w-[380px]
           overflow-hidden

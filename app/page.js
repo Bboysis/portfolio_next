@@ -9,6 +9,7 @@ import SmartWelcome from "@/components/SmartWelcome";
 import ScrollStory from "@/components/ScrollStory";
 import DynamicBackground from "@/components/DynamicBackground";
 import PortfolioAssistant from "../components/PortfolioAssistant";
+import MobileBottomNav from "@/components/MobileBottomNav";
  export default function Home() {
   return (
     <main className="relative min-h-screen overflow-x-hidden">
@@ -50,7 +51,9 @@ import PortfolioAssistant from "../components/PortfolioAssistant";
       </div>
  
       <SmartWelcome />
+      <MobileBottomNav/>
 <PortfolioAssistant/>
+ 
     </main>
   );
 }
