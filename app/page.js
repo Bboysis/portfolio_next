@@ -10,7 +10,9 @@ import ScrollStory from "@/components/ScrollStory";
 import DynamicBackground from "@/components/DynamicBackground";
 import PortfolioAssistant from "../components/PortfolioAssistant";
 import MobileBottomNav from "@/components/MobileBottomNav";
- export default function Home() {
+import MobileScrollProgress from "@/components/MobileScrollProgress";
+import MobileMiniAssistant from "@/components/MobileMiniAssistant";
+  export default function Home() {
   return (
     <main className="relative min-h-screen overflow-x-hidden">
       
@@ -29,10 +31,10 @@ import MobileBottomNav from "@/components/MobileBottomNav";
           WEBSITE CONTENT
       ========================================= */}
       <div className="relative z-10">
-        
+        <MobileScrollProgress/>
         {/* Hero */}
         <Hero />
-
+ 
         {/* Featured Projects */}
         <FeaturedProjects />
 
@@ -49,7 +51,7 @@ import MobileBottomNav from "@/components/MobileBottomNav";
         <Testimonials />
 <PortfolioAssistant/>
       </div>
- 
+ <MobileMiniAssistant/>
       <SmartWelcome />
       <MobileBottomNav/>
 <PortfolioAssistant/>
