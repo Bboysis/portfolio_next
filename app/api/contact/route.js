@@ -20,62 +20,28 @@ export async function POST(request) {
     }
 
     const { data, error } = await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
-
-      to: ["sisayabebayew@gmail.com"],
-
-      replyTo: email,
-
-      subject: `Portfolio: ${subject}`,
-
-      html: `
-        <div style="font-family: Arial, sans-serif; padding: 20px;">
-          
-          <h2>New Portfolio Message 🚀</h2>
-
-          <hr />
-
-          <p>
-            <strong>Name:</strong>
-            ${name}
-          </p>
-
-          <p>
-            <strong>Email:</strong>
-            ${email}
-          </p>
-
-          <p>
-            <strong>Subject:</strong>
-            ${subject}
-          </p>
-
-          <br />
-
-          <h3>Message:</h3>
-
-          <div
-            style="
-              background: #f4f4f5;
-              padding: 16px;
-              border-radius: 10px;
-              white-space: pre-wrap;
-            "
-          >
-            ${message}
-          </div>
-
-          <br />
-
-          <hr />
-
-          <p style="color: #777;">
-            Sent from your portfolio website.
-          </p>
-
-        </div>
-      `,
-    });
+  from: "Portfolio Contact <onboarding@resend.dev>",
+  to: ["sisayabebayew@gmail.com"],
+  replyTo: email,
+  subject: `Portfolio: ${subject}`,
+  html: `
+    <div style="font-family: Arial, sans-serif; padding: 20px;">
+      <h2>New Portfolio Message 🚀</h2>
+      <hr />
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Subject:</strong> ${subject}</p>
+      <br />
+      <h3>Message:</h3>
+      <div style="background: #f4f4f5; padding: 16px; border-radius: 10px; white-space: pre-wrap;">
+        ${message}
+      </div>
+      <br />
+      <hr />
+      <p style="color: #777;">Sent from your portfolio website.</p>
+    </div>
+  `,
+});
 
     if (error) {
       console.error("Resend error:", error);
