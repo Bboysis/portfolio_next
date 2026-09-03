@@ -49,7 +49,7 @@ import { useState } from "react";
   setStatus("");
 
   try {
-    const response = await fetch("/api/contact", {
+    const response = await fetch("loading", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

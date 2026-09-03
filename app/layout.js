@@ -1,5 +1,6 @@
  import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Backtotop from "@/components/ui/Backtotop";
@@ -7,6 +8,7 @@ import InteractiveBackground from "@/components/ui/InteractivBackground";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import CommandPalette from "@/components/ui/CommandPalette";
 import ScrollProgress from "../components/ui/ScrollProgress";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,7 +27,7 @@ export const metadata = {
     "https://sisaydev-portfolio.netlify.app"
   ),
 
-  // ✅ GOOGLE VERIFICATION ADDED HERE ✅
+  // Google Search Console verification
   verification: {
     google: "lv5Rs3lAD5sJLCrshEz_bPfhwYErs8a0s8gXBhOUoAo",
   },
@@ -36,7 +38,21 @@ export const metadata = {
   },
 
   description:
-    "Sisay Abebayew is a Full-Stack Developer and Digital Solutions Architect building modern websites, web applications, management systems, and practical digital solutions.",
+    "Developer portfolio showcasing projects, skills, and digital experiences.",
+
+  applicationName: "Sisay Portfolio",
+
+  manifest: "/manifest.webmanifest",
+   appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Sisay Portfolio",
+  },
+
+  icons: {
+    icon: "/apple-touch-icon.png",
+    apple: "/apple-touch-icon.png",
+  },
 
   keywords: [
     "Sisay Abebayew",
@@ -62,11 +78,13 @@ export const metadata = {
   ],
 
   creator: "Sisay Abebayew",
+
   publisher: "Sisay Abebayew",
 
   robots: {
     index: true,
     follow: true,
+
     googleBot: {
       index: true,
       follow: true,
@@ -115,6 +133,13 @@ export const metadata = {
   category: "technology",
 };
 
+// PWA / browser theme configuration
+export const viewport = {
+  themeColor: "#4ECDC4",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html
@@ -122,16 +147,25 @@ export default function RootLayout({ children }) {
       className={`${inter.variable} ${spaceGrotesk.variable}`}
     >
       <body className="flex min-h-screen flex-col">
-        <ScrollProgress/>
+        <ServiceWorkerRegister />
+
+        <ScrollProgress />
+
         <LoadingScreen />
+
         <Navbar />
-        <InteractiveBackground/>
+
+        <InteractiveBackground />
+
         <main className="flex-1">
           {children}
         </main>
+
         <Footer />
+
         <Backtotop />
-        <CommandPalette/>
+
+        <CommandPalette />
       </body>
     </html>
   );
