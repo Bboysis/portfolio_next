@@ -9,7 +9,7 @@ import LoadingScreen from "@/components/ui/LoadingScreen";
 import CommandPalette from "@/components/ui/CommandPalette";
 import ScrollProgress from "../components/ui/ScrollProgress";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
-
+import InstallPrompt from "@/components/InstallPrompt";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -148,7 +148,7 @@ export default function RootLayout({ children }) {
     >
       <body className="flex min-h-screen flex-col">
         <ServiceWorkerRegister />
-
+<InstallPrompt/>
         <ScrollProgress />
 
         <LoadingScreen />
