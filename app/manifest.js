@@ -1,7 +1,7 @@
  export default function manifest() {
   return {
     name: "Sisay Abebayew Portfolio",
-    short_name: "Sisay",
+    short_name: "Sis app",
     description:
       "Full-Stack Developer & Digital Solutions Architect — showcasing projects, skills, and digital experiences.",
     start_url: "/",
@@ -31,12 +31,12 @@
 
     icons: [
       {
-        src: "/icons/icon-192x192.png",
+        src: "/icons/sisay-logo.png",
         sizes: "192x192",
         type: "image/png",
       },
       {
-        src: "/icons/icon-512x512.png",
+        src: "/icons/sisay-logo.png",
         sizes: "512x512",
         type: "image/png",
       },
