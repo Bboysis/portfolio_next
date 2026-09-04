@@ -107,7 +107,7 @@ export const metadata = {
 
     images: [
       {
-        url: "/images/coder.jpg",
+        url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Sisay Abebayew — Full-Stack Developer",
@@ -123,7 +123,7 @@ export const metadata = {
     description:
       "Full-Stack Developer & Digital Solutions Architect building practical digital solutions.",
 
-    images: ["/images/coder.jpg"],
+    images: ["/images/og-image.jpg"],
   },
 
   alternates: {
