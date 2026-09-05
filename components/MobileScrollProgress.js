@@ -89,8 +89,7 @@ export default function MobileScrollProgress() {
         w-[calc(100%-2rem)]
         max-w-sm
         -translate-x-1/2
-        md:hidden
-      "
+       "
     >
       <div
         className="

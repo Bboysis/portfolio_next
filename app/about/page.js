@@ -1,6 +1,7 @@
 import Image from "next/image";
  import { timeline } from "@/data/experience";
  import TechConstellation from "@/components/TechConstellation";
+ import MobileScrollProgress from "@/components/MobileScrollProgress";
 export const metadata = {
   title: "About — Sisay Abebayew",
   description: "Full-Stack Developer & Digital Solutions Architect.",
@@ -71,6 +72,7 @@ export default function AboutPage() {
         </div>
       
       </div>
+      <MobileScrollProgress/>
        <TechConstellation/>
      </div>
     

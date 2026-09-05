@@ -1,29 +1,8 @@
  "use client";
 
 import { useEffect, useState } from "react";
-
-const testimonials = [
-  {
-    name: "Senay",
-    role: "Client / Business Owner",
-    message:
-      "Working with Sisay was a great experience. He understood the project requirements and turned the idea into a practical and professional digital solution.",
-  },
-  {
-    name: "Dr. Yshak",
-    role: "Project Client",
-    message:
-      "The project was well organized, responsive, and easy to use. Communication was clear and the final result matched what we needed.",
-  },
-  {
-    name: "Mr. Gullat",
-    role: "Business Owner",
-    message:
-      "Sisay delivered a modern and functional website with attention to both design and usability.",
-  },
-];
-
-function QuoteIcon() {
+import { supabase } from "@/lib/supabase";
+ function QuoteIcon() {
   return (
     <svg
       width="28"
@@ -76,24 +55,46 @@ function ArrowRight() {
 }
 
 export default function Testimonials() {
+  const [testimonials, setTestimonials] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const nextTestimonial = () => {
-    setActiveIndex((prev) =>
-      prev === testimonials.length - 1 ? 0 : prev + 1
-    );
-  };
+  // Fetch approved testimonials
+  useEffect(() => {
+    async function fetchTestimonials() {
+      const { data, error } = await supabase
+        .from("testimonials")
+        .select("*")
+        .eq("approved", true)
+        .order("created_at", { ascending: false });
 
-  const previousTestimonial = () => {
-    setActiveIndex((prev) =>
-      prev === 0 ? testimonials.length - 1 : prev - 1
-    );
-  };
+      if (error) {
+        console.error("Error loading testimonials:", error);
+        setTestimonials([]);
+      } else {
+        setTestimonials(data || []);
+      }
+
+      setLoading(false);
+    }
+
+    fetchTestimonials();
+  }, []);
+
+  // Keep active index valid when data changes
+  useEffect(() => {
+    if (
+      testimonials.length > 0 &&
+      activeIndex >= testimonials.length
+    ) {
+      setActiveIndex(0);
+    }
+  }, [testimonials, activeIndex]);
 
   // Auto slide
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || testimonials.length <= 1) return;
 
     const interval = setInterval(() => {
       setActiveIndex((prev) =>
@@ -102,9 +103,23 @@ export default function Testimonials() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, testimonials.length]);
 
-  const testimonial = testimonials[activeIndex];
+  const nextTestimonial = () => {
+    if (testimonials.length === 0) return;
+
+    setActiveIndex((prev) =>
+      prev === testimonials.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const previousTestimonial = () => {
+    if (testimonials.length === 0) return;
+
+    setActiveIndex((prev) =>
+      prev === 0 ? testimonials.length - 1 : prev - 1
+    );
+  };
 
   return (
     <section
@@ -114,7 +129,7 @@ export default function Testimonials() {
       {/* Background glow */}
       <div className="pointer-events-none absolute right-0 top-1/4 h-80 w-80 rounded-full bg-accent/10 blur-[130px]" />
 
-      <div className="pointer-events-none absolute left-0 bottom-0 h-64 w-64 rounded-full bg-accent/5 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-accent/5 blur-[120px]" />
 
       <div className="section-container relative z-10">
         {/* Heading */}
@@ -132,258 +147,289 @@ export default function Testimonials() {
           </p>
         </div>
 
-        {/* Main testimonial slider */}
-        <div className="mx-auto mt-14 max-w-4xl">
-          <div
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-            className="
-              group
-              relative
-              overflow-hidden
-              rounded-3xl
-              border
-              border-slate-line
-              bg-white/[0.03]
-              p-7
-              backdrop-blur-md
-              transition-all
-              duration-500
-              hover:border-accent/40
-              hover:shadow-2xl
-              hover:shadow-accent/10
-              sm:p-10
-              lg:p-14
-            "
-          >
-            {/* Decorative number */}
-            <div className="absolute right-6 top-5 font-mono text-sm tracking-widest text-accent/40">
-              0{activeIndex + 1} / 0{testimonials.length}
-            </div>
+        {/* Loading */}
+        {loading && (
+          <div className="mx-auto mt-14 max-w-4xl text-center">
+            <p className="text-sm text-paper/50 light:text-navy/50">
+              Loading testimonials...
+            </p>
+          </div>
+        )}
+        {/* Empty state */}
+        {!loading && testimonials.length === 0 && (
+          <div className="mx-auto mt-14 max-w-4xl rounded-3xl border border-slate-line bg-white/[0.03] p-10 text-center backdrop-blur-md">
+            <p className="text-paper/60 light:text-navy/60">
+              No approved testimonials yet.
+            </p>
+          </div>
+        )}
 
-            {/* Quote icon */}
-            <div
-              className="
-                flex
-                h-14
-                w-14
-                items-center
-                justify-center
-                rounded-2xl
-                border
-                border-accent/20
-                bg-accent/10
-                text-accent
-                transition-all
-                duration-500
-                group-hover:scale-110
-                group-hover:rotate-3
-              "
-            >
-              <QuoteIcon />
-            </div>
+        {/* Testimonials */}
+        {!loading && testimonials.length > 0 && (
+          <>
+            {/* Main testimonial slider */}
+            <div className="mx-auto mt-14 max-w-4xl">
+              <div
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+                className="
+                  group
+                  relative
+                  overflow-hidden
+                  rounded-3xl
+                  border
+                  border-slate-line
+                  bg-white/[0.03]
+                  p-7
+                  backdrop-blur-md
+                  transition-all
+                  duration-500
+                  hover:border-accent/40
+                  hover:shadow-2xl
+                  hover:shadow-accent/10
+                  sm:p-10
+                  lg:p-14
+                "
+              >
+                {/* Decorative number */}
+                <div className="absolute right-6 top-5 font-mono text-sm tracking-widest text-accent/40">
+                  0{activeIndex + 1} / 0{testimonials.length}
+                </div>
 
-            {/* Stars */}
-            <div className="mt-7 flex gap-1 text-lg text-accent">
-              <span>★</span>
-              <span>★</span>
-              <span>★</span>
-              <span>★</span>
-              <span>★</span>
-            </div>
-
-            {/* Message */}
-            <div key={activeIndex} className="animate-fade-up">
-              <p className="mt-6 text-lg leading-8 text-paper/75 sm:text-xl sm:leading-9 light:text-navy/75">
-                “{testimonial.message}”
-              </p>
-
-              {/* Client information */}
-              <div className="mt-10 flex items-center gap-4 border-t border-slate-line pt-6">
-                {/* Avatar */}
+                {/* Quote icon */}
                 <div
                   className="
                     flex
-                    h-12
-                    w-12
+                    h-14
+                    w-14
                     items-center
                     justify-center
-                    rounded-full
+                    rounded-2xl
                     border
-                    border-accent/30
+                    border-accent/20
                     bg-accent/10
-                    font-display
-                    font-bold
                     text-accent
+                    transition-all
+                    duration-500
+                    group-hover:scale-110
+                    group-hover:rotate-3
                   "
                 >
-                  {testimonial.name.charAt(0).toUpperCase()}
+                  <QuoteIcon />
                 </div>
 
-                <div>
-                  <h3 className="font-display text-base font-semibold text-paper light:text-navy">
-                    {testimonial.name}
-                  </h3>
+                {/* Stars */}
+                <div className="mt-7 flex gap-1 text-lg text-accent">
+                  {Array.from({
+                    length: testimonials[activeIndex]?.rating || 5,
+                  }).map((_, index) => (
+                    <span key={index}>★</span>
+                  ))}
+                </div>
 
-                  <p className="mt-1 text-xs text-accent">
-                    {testimonial.role}
+                {/* Message */}
+                <div key={activeIndex} className="animate-fade-up">
+                  <p className="mt-6 text-lg leading-8 text-paper/75 sm:text-xl sm:leading-9 light:text-navy/75">
+                    “{testimonials[activeIndex].message}”
                   </p>
+
+                  {/* Client information */}
+                  <div className="mt-10 flex items-center gap-4 border-t border-slate-line pt-6">
+                    {/* Avatar */}
+                    <div
+                      className="
+                        flex
+                        h-12
+                        w-12
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        border-accent/30
+                        bg-accent/10
+                        font-display
+                        font-bold
+                        text-accent
+                      "
+                    >
+                      {testimonials[
+                        activeIndex
+                      ].name.charAt(0).toUpperCase()}
+                    </div>
+
+                    <div>
+                      <h3 className="font-display text-base font-semibold text-paper light:text-navy">
+                        {testimonials[activeIndex].name}
+                      </h3>
+                      <p className="mt-1 text-xs text-accent">
+                        {testimonials[activeIndex].role}
+                        {testimonials[activeIndex].company
+                          ? ` • ${testimonials[activeIndex].company}
+                          `: ""}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Decorative glow */}
-            <div
-              className="
-                pointer-events-none
-                absolute
-                -bottom-24
-                -right-24
-                h-56
-                w-56
-                rounded-full
-                bg-accent/10
-                blur-3xl
-              "
-            />
-          </div>
-
-          {/* Controls */}
-          <div className="mt-8 flex items-center justify-center gap-5">
-            {/* Previous */}
-            <button
-              onClick={previousTestimonial}
-              aria-label="Previous testimonial"
-              className="
-                flex
-                h-11
-                w-11
-                items-center
-                justify-center
-                rounded-full
-                border
-                border-slate-line
-                text-paper
-                transition-all
-                hover:border-accent
-                hover:bg-accent/10
-                hover:text-accent
-                light:text-navy
-              "
-            >
-              <ArrowLeft />
-            </button>
-            {/* Indicators */}
-            <div className="flex items-center gap-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveIndex(index)}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                  className={`
-                    h-2.5
-                    rounded-full
-                    transition-all
-                    duration-300
-                    ${
-                      activeIndex === index
-                        ? "w-8 bg-accent"
-                        : "w-2.5 bg-paper/20 hover:bg-accent/50 light:bg-navy/20"
-                    }
-                  `}
-                />
-              ))}
-            </div>
-
-            {/* Next */}
-            <button
-              onClick={nextTestimonial}
-              aria-label="Next testimonial"
-              className="
-                flex
-                h-11
-                w-11
-                items-center
-                justify-center
-                rounded-full
-                border
-                border-slate-line
-                text-paper
-                transition-all
-                hover:border-accent
-                hover:bg-accent/10
-                hover:text-accent
-                light:text-navy
-              "
-            >
-              <ArrowRight />
-            </button>
-          </div>
-
-          {/* Auto slide status */}
-          <p className="mt-5 text-center text-xs text-paper/35 light:text-navy/40">
-            {isPaused
-              ? "Slider paused"
-              : "Testimonials change automatically"}
-          </p>
-        </div>
-
-        {/* Small client preview cards */}
-        <div className="mx-auto mt-14 grid max-w-5xl gap-4 sm:grid-cols-3">
-          {testimonials.map((item, index) => (
-            <button
-              key={item.name}
-              onClick={() => setActiveIndex(index)}
-              className={`
-                rounded-2xl
-                border
-                p-5
-                text-left
-                transition-all
-                duration-300
-                ${
-                  activeIndex === index
-                    ? "border-accent/60 bg-accent/[0.08]"
-                    : "border-slate-line bg-white/[0.02] hover:border-accent/30"
-                }
-              `}
-            >
-              <div className="flex items-center gap-3">
+                {/* Decorative glow */}
                 <div
-                  className={`
-                    flex
-                    h-10
-                    w-10
-                    items-center
-                    justify-center
+                  className="
+                    pointer-events-none
+                    absolute
+                    -bottom-24
+                    -right-24
+                    h-56
+                    w-56
                     rounded-full
-                    border
-                    font-semibold
-                    ${
-                      activeIndex === index
-                        ? "border-accent bg-accent/15 text-accent"
-                        : "border-slate-line text-paper/60 light:text-navy/60"
-                    }
-                 ` }
-                >
-                  {item.name.charAt(0).toUpperCase()}
-                </div>
-
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold text-paper light:text-navy">
-                    {item.name}
-                  </p>
-
-                  <p className="mt-1 truncate text-xs text-paper/45 light:text-navy/45">
-                    {item.role}
-                  </p>
-                </div>
+                    bg-accent/10
+                    blur-3xl
+                  "
+                />
               </div>
-            </button>
-          ))}
-        </div>
 
-        {/* CTA */}
+              {/* Controls */}
+              {testimonials.length > 1 && (
+                <>
+                  <div className="mt-8 flex items-center justify-center gap-5">
+                    {/* Previous */}
+                    <button
+                      onClick={previousTestimonial}
+                      aria-label="Previous testimonial"
+                      className="
+                        flex
+                        h-11
+                        w-11
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        border-slate-line
+                        text-paper
+                        transition-all
+                        hover:border-accent
+                        hover:bg-accent/10
+                        hover:text-accent
+                        light:text-navy
+                      "
+                    >
+                      <ArrowLeft />
+                    </button>
+
+                    {/* Indicators */}
+                    <div className="flex items-center gap-2">
+                      {testimonials.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setActiveIndex(index)}
+                          aria-label={`Go to testimonial ${index + 1}`}
+                          className={`
+                            h-2.5
+                            rounded-full
+                            transition-all
+                            duration-300
+                            ${
+                              activeIndex === index
+                                ? "w-8 bg-accent"
+                                : "w-2.5 bg-paper/20 hover:bg-accent/50 light:bg-navy/20"
+                            }
+                          `}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Next */}
+                    <button
+                      onClick={nextTestimonial}
+                      aria-label="Next testimonial"
+                      className="
+                        flex
+                        h-11
+                        w-11
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        border-slate-line
+                        text-paper
+                        transition-all
+                        hover:border-accent
+                        hover:bg-accent/10
+                        hover:text-accent
+                        light:text-navy
+                      "
+                    >
+                      <ArrowRight />
+                    </button>
+                  </div>
+
+                  {/* Auto slide status */}
+                  <p className="mt-5 text-center text-xs text-paper/35 light:text-navy/40">
+                    {isPaused
+                      ? "Slider paused"
+                      : "Testimonials change automatically"}
+                  </p>
+                </>
+              )}
+            </div>
+            {/* Small client preview cards */}
+            {testimonials.length > 1 && (
+              <div className="mx-auto mt-14 grid max-w-5xl gap-4 sm:grid-cols-3">
+                {testimonials.map((item, index) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setActiveIndex(index)}
+                    className={`
+                      rounded-2xl
+                      border
+                      p-5
+                      text-left
+                      transition-all
+                      duration-300
+                      ${
+                        activeIndex === index
+                          ? "border-accent/60 bg-accent/[0.08]"
+                          : "border-slate-line bg-white/[0.02] hover:border-accent/30"
+                      }
+                    `}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`
+                          flex
+                          h-10
+                          w-10
+                          items-center
+                          justify-center
+                          rounded-full
+                          border
+                          font-semibold
+                          ${
+                            activeIndex === index
+                              ? "border-accent bg-accent/15 text-accent"
+                              : "border-slate-line text-paper/60 light:text-navy/60"
+                          }
+                        `}
+                      >
+                        {item.name.charAt(0).toUpperCase()}
+                      </div>
+
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-semibold text-paper light:text-navy">
+                          {item.name}
+                        </p>
+
+                        <p className="mt-1 truncate text-xs text-paper/45 light:text-navy/45">
+                          {item.role}
+                        </p>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+         {/* CTA */}
         <div className="mt-14 text-center">
           <p className="text-sm text-paper/40 light:text-navy/40">
             Have a project in mind?

@@ -2,8 +2,7 @@
 import FeaturedProjects from "@/components/sections/FeaturedProjects";
 import Stats from "@/components/sections/Stats";
 import SkillsGrid from "@/components/sections/SkillsGrid";
-import Testimonials from "@/components/sections/Testimonials";
-
+ 
 import WebsiteMap from "@/components/WebsiteMap";
 import SmartWelcome from "@/components/SmartWelcome";
 import ScrollStory from "@/components/ScrollStory";
@@ -48,8 +47,7 @@ import MobileMiniAssistant from "@/components/MobileMiniAssistant";
         <WebsiteMap />
 
         {/* Testimonials */}
-        <Testimonials />
-<PortfolioAssistant/>
+ <PortfolioAssistant/>
       </div>
  <MobileMiniAssistant/>
       <SmartWelcome />

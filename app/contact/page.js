@@ -1,7 +1,7 @@
  "use client";
 
 import { useState } from "react";
-
+import MobileScrollProgress from "@/components/MobileScrollProgress";
 
  export default function Contact() {
   const [loading, setLoading] = useState(false);
@@ -49,7 +49,7 @@ import { useState } from "react";
   setStatus("");
 
   try {
-    const response = await fetch("loading", {
+    const response = await fetch("/api/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,8 +60,12 @@ import { useState } from "react";
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || "Failed to send message.");
-    }
+  console.log("API RESPONSE:", data);
+
+  throw new Error(
+    data.message || "Failed to send message."
+  );
+}
 
     setStatus("success");
 
@@ -81,12 +85,12 @@ import { useState } from "react";
 
  
    
-
   return (
     <section
       id="contact"
       className="relative overflow-hidden py-24 sm:py-32"
     >
+      <MobileScrollProgress/>
       {/* Background glow */}
       <div className="pointer-events-none absolute left-0 top-1/4 h-80 w-80 rounded-full bg-accent/10 blur-[140px]" />
 

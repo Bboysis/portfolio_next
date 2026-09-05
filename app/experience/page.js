@@ -1,5 +1,6 @@
 import { timeline } from "@/data/experience";
 import CurrentlyBuilding from "@/components/CurrentlyBuilding";
+import MobileScrollProgress from "@/components/MobileScrollProgress";
  export const metadata = {
   title: "Experience — Sisay Abebayew",
   description:
@@ -45,6 +46,7 @@ export default function ExperiencePage() {
         </ol>
       </div>
       <CurrentlyBuilding/>
+      <MobileScrollProgress/>
     </main>
   );
 }

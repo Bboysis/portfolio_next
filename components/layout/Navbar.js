@@ -18,6 +18,8 @@ import {
 import { MapIcon } from "lucide-react";
 import { TerminalIcon } from "lucide-react";
 import { Airplay } from "lucide-react";
+import Testimonials from "../sections/Testimonials";
+import { TestTubeIcon } from "lucide-react";
 
 const navigation = [
   {
@@ -51,9 +53,9 @@ const navigation = [
     icon: FileText,
   },
    {
-    name: "Map",
-    href: "/map",
-    icon: MapIcon,
+    name: "Testimonials",
+    href: "/testimonials",
+    icon: TestTubeIcon,
   },
   {
     name: "Contact",

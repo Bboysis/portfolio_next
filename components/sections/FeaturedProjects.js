@@ -1,34 +1,24 @@
  "use client";
  
+import { image } from "framer-motion/client";
  import Link from "next/link";
  
  const projects = [
    {
+    image: "/images/projects/Sisay Abebayew — Portfolio - Google Chrome 8_5_2026 5_25_43 PM.png",
      number: "01",
-     title: "Pharmacy Management System",
-     category: "Management System",
-     description:
-       "A complete pharmacy management system for managing medicines, inventory, customers, suppliers, sales, purchases, users, and reports.",
-     technologies: ["PHP", "JavaScript", "MySQL", "Bootstrap"],
-     status: "Completed",
-     liveUrl: "#",
-     githubUrl: "#",
-   },
- 
-   {
-     number: "02",
      title: "SIS Missford School Management",
      category: "School Management",
      description:
        "A web-based school management solution designed to organize students, academic information, administration, and school operations.",
      technologies: ["PHP", "JavaScript", "MySQL", "Bootstrap"],
      status: "Completed",
-     liveUrl: "#",
+     liveUrl: "http://sis-missford.infinityfreeapp.com/",
      githubUrl: "#",
    },
- 
-   {
-     number: "03",
+    {
+        image: "/images/projects/🏨 Hotel Management - Google Chrome 8_5_2026 5_22_51 PM.png",
+     number: "02",
      title: "Hotel Management System",
      category: "Hospitality",
      description:
@@ -38,32 +28,47 @@
      liveUrl: "https://trinity-hotel.infinityfree.io",
      githubUrl: "#",
    },
- 
-   {
-     number: "04",
-     title: "E-Commerce Website",
-     category: "E-Commerce",
-     description:
-       "A modern e-commerce platform designed to provide customers with an easy way to browse products and interact with an online store.",
-     technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
-     status: "Completed",
-     liveUrl: "#",
-     githubUrl: "#",
-   },
- 
-   {
-     number: "05",
+    {
+        image: "/images/projects/Coach Tesfaye _ Personal Trainer - Google Chrome 7_29_2026 10_50_38 PM.png",
+     number: "03",
      title: "Personal Gym Trainer Website",
      category: "Business Website",
      description:
        "A premium personal trainer website showcasing fitness programs, services, transformation results, testimonials, nutrition guidance, and contact options.",
      technologies: ["HTML", "CSS", "JavaScript"],
      status: "Completed",
-     liveUrl: "#",
+      liveUrl: "https://coach-tesfayecom.netlify.app",
+     githubUrl: "#",
+   },
+   {
+    image: "/images/projects/pharmacy.png",
+     number: "04",
+     title: "Pharmacy Management System",
+     category: "Management System",
+     description:
+       "A complete pharmacy management system for managing medicines, inventory, customers, suppliers, sales, purchases, users, and reports.",
+     technologies: ["PHP", "JavaScript", "MySQL", "Bootstrap"],
+     status: "Completed",
+     liveUrl: "https://portfolio-next-orpin-gamma.vercel.app",
+     githubUrl: "#",
+   },
+
+ 
+   {
+        image: "/images/projects/e-commers.png",
+     number: "05",
+     title: "E-Commerce Website",
+     category: "E-Commerce",
+     description:
+       "A modern e-commerce platform designed to provide customers with an easy way to browse products and interact with an online store.",
+     technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
+     status: "Completed",
+      liveUrl: "https://portfolio-next-orpin-gamma.vercel.app",
      githubUrl: "#",
    },
  
    {
+        image: "/images/projects/hero6.jpg",
      number: "06",
      title: "QR Menu System",
      category: "Digital Solution",
@@ -71,7 +76,7 @@
        "A digital QR menu solution that allows restaurants and businesses to provide customers with quick access to their menu through a QR code.",
      technologies: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
      status: "Completed",
-     liveUrl: "#",
+     liveUrl: "https://portfolio-next-orpin-gamma.vercel.app",
      githubUrl: "#",
    },
  ];
@@ -127,10 +132,11 @@
  
          </div>
  
+         
          {/* Projects */}
          <div className="mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-2">
          {projects.map((project) => (
-             <article
+          <article
                key={project.number}
                className="
                  group
@@ -147,38 +153,54 @@
                  hover:border-accent/40
                  hover:shadow-2xl
                  hover:shadow-accent/10
-               "
-             >
- 
-               {/* Top visual area */}
-               <div
-                 className="
-                   relative
-                   flex
-                   h-52
-                   items-center
-                   justify-center
-                   overflow-hidden
-                   border-b
-                   border-slate-line
-                   bg-gradient-to-br
-                   from-accent/[0.08]
-                   via-transparent
-                   to-white/[0.02]
-                 "
+               " 
                >
+               {/* Top visual area */}
+<div
+  className="
+    relative
+    flex
+    h-52
+    items-center
+    justify-center
+    overflow-hidden
+    border-b
+    border-slate-line
+    bg-gradient-to-br
+    from-accent/[0.08]
+    via-transparent
+    to-white/[0.02]
+  "
+>
+  {project.image && (
+    <img
+      src={project.image}
+      alt={project.title}
+      className="
+        h-full
+        w-full
+        object-cover
+        transition-all
+        duration-500
+        group-hover:scale-105
+      "
+    />
+  )}
+
+  {/* Decorative grid */}
+  <div
+    className="
+      absolute
+      inset-0
+      opacity-20
+      [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)]
+      [background-size:32px_32px]
+    "
+  />
  
-                 {/* Decorative grid */}
-                 <div
-                   className="
-                     absolute
-                     inset-0
-                     opacity-20
-                     [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)]
-                     [background-size:32px_32px]
-                   "
-                 />
+               
  
+                 
                  {/* Glow */}
                  <div
                    className="

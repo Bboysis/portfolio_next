@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { projects } from "@/data/projects";
 import DeveloperDashboard from "@/components/DeveloperDashboard";
+import MobileScrollProgress from "@/components/MobileScrollProgress";
  export const metadata = {
   title: "Projects — Sisay Abebayew",
   description: "A complete collection of full-stack systems and websites I've built.",
@@ -56,6 +57,7 @@ import DeveloperDashboard from "@/components/DeveloperDashboard";
         ))}
       </div>
       <DeveloperDashboard/>
+      <MobileScrollProgress/>
     </div>
   );
 }
