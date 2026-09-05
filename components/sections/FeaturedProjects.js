@@ -37,7 +37,7 @@ import { image } from "framer-motion/client";
        "A premium personal trainer website showcasing fitness programs, services, transformation results, testimonials, nutrition guidance, and contact options.",
      technologies: ["HTML", "CSS", "JavaScript"],
      status: "Completed",
-      liveUrl: "https://coach-tesfayecom.netlify.app",
+      liveUrl: "https://coach-tesfayecom.netlify.app/",
      githubUrl: "#",
    },
    {
