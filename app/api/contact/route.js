@@ -1,4 +1,4 @@
- import { Resend } from "resend";
+   import { Resend } from "resend";
 
 export async function POST(request) {
   console.log("CONTACT API: request received");
