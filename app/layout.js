@@ -68,6 +68,7 @@ export const metadata = {
     "MySQL Developer",
     "Web Development",
     "Ethiopia Developer",
+    "best next.js developer"
   ],
 
   authors: [
