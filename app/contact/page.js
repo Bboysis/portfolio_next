@@ -60,11 +60,12 @@ import MobileScrollProgress from "@/components/MobileScrollProgress";
     const data = await response.json();
 
     if (!response.ok) {
+  console.log("STATUS:", response.status);
   console.log("API RESPONSE:", data);
 
-  throw new Error(
-    data.message || "Failed to send message."
-  );
+  alert(JSON.stringify(data, null, 2));
+
+  return;
 }
 
     setStatus("success");
