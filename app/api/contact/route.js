@@ -1,10 +1,24 @@
  import { Resend } from "resend";
-
+import { createClient } from "@/lib/supabase/server";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request) {
   try {
-    const { name, email, subject, message } = await request.json();
+     const supabase = await createClient();
+
+const { error: databaseError } = await supabase
+  .from("contact_messages")
+  .insert({
+    name,
+    email,
+    subject: subject || null,
+    message,
+  });
+
+if (databaseError) {
+  console.error("Database error:", databaseError);
+}
+    
 
     if (!name || !email || !message) {
       return Response.json(
