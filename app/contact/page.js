@@ -355,6 +355,7 @@ import MobileScrollProgress from "@/components/MobileScrollProgress";
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-button"
+                   
                 >
                   GitHub
                 </a>
@@ -372,7 +373,7 @@ import MobileScrollProgress from "@/components/MobileScrollProgress";
                 <a
                   href="#"
                   className="social-button"
-                >
+                 >
                   Twitter
                 </a>
 

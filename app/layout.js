@@ -10,6 +10,7 @@ import CommandPalette from "@/components/ui/CommandPalette";
 import ScrollProgress from "../components/ui/ScrollProgress";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import InstallPrompt from "@/components/InstallPrompt";
+import OnlineStatus from "@/components/OnlineStatus";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -156,6 +157,7 @@ export default function RootLayout({ children }) {
         <Navbar />
 
         <InteractiveBackground />
+        <OnlineStatus/>
 
         <main className="flex-1">
           {children}

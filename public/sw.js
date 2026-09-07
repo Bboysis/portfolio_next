@@ -1,4 +1,4 @@
- const CACHE_NAME = "sisay-portfolio-v1";
+ const CACHE_NAME = "sisay-portfolio-v2";
 
 const STATIC_ASSETS = [
   "/",
@@ -10,50 +10,85 @@ const STATIC_ASSETS = [
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
+    caches.open(CACHE_NAME).then(async (cache) => {
+      for (const asset of STATIC_ASSETS) {
+        try {
+          await cache.add(asset);
+        } catch (error) {
+          console.warn("Could not cache:", asset, error);
+        }
+      }
     })
   );
+
   self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    caches
+      .keys()
+      .then((cacheNames) =>
+        Promise.all(
+          cacheNames.map((cacheName) => {
+            if (cacheName !== CACHE_NAME) {
+              return caches.delete(cacheName);
+            }
+          })
+        )
+      )
+      .then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
-  if (event.request.method !== "GET") {
+  const request = event.request;
+
+  // Only handle GET requests
+  if (request.method !== "GET") {
     return;
   }
 
   event.respondWith(
-    fetch(event.request)
+    fetch(request)
       .then((response) => {
+        // Don't cache bad responses
+        if (!response || response.status !== 200) {
+          return response;
+        }
+
+        // Cache successful requests
         const responseClone = response.clone();
+
         caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseClone);
+          cache.put(request, responseClone);
         });
+
         return response;
       })
-      .catch(() => {
-        return caches.match(event.request).then((cachedResponse) => {
-          if (cachedResponse) {
-            return cachedResponse;
+      .catch(async () => {
+        // Try cached request
+        const cachedResponse = await caches.match(request);
+
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+
+        // If it's a page navigation, show offline page
+        if (request.mode === "navigate") {
+          const offlinePage = await caches.match("/offline");
+
+          if (offlinePage) {
+            return offlinePage;
           }
-          if (event.request.mode === "navigate") {
-            return caches.match("/offline");
-          }
+        }
+
+        // Nothing available
+        return new Response("Offline", {
+          status: 503,
+          headers: {
+            "Content-Type": "text/plain",
+          },
         });
       })
   );
