@@ -1,4 +1,5 @@
  import Hero from "@/components/sections/Hero";
+ import ProjectsFromSupabase from "@/components/sections/ProjectsFormSupabase";
 import FeaturedProjects from "@/components/sections/FeaturedProjects";
 import Stats from "@/components/sections/Stats";
 import SkillsGrid from "@/components/sections/SkillsGrid";
@@ -11,6 +12,7 @@ import PortfolioAssistant from "../components/PortfolioAssistant";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import MobileScrollProgress from "@/components/MobileScrollProgress";
 import MobileMiniAssistant from "@/components/MobileMiniAssistant";
+
   export default function Home() {
   return (
     <main className="relative min-h-screen overflow-x-hidden">
@@ -33,7 +35,7 @@ import MobileMiniAssistant from "@/components/MobileMiniAssistant";
         <MobileScrollProgress/>
         {/* Hero */}
         <Hero />
- 
+         <ProjectsFromSupabase/>
         {/* Featured Projects */}
         <FeaturedProjects />
 
