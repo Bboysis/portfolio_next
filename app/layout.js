@@ -141,12 +141,60 @@ export const viewport = {
   initialScale: 1,
 };
 
+// ============================================================
+// STRUCTURED DATA — GOOGLE KNOWLEDGE PANEL
+// ============================================================
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Sisay Abebayew",
+  alternateName: "Sisay",
+  url: "https://sisaydev-portfolio.netlify.app",
+  image: "https://sisaydev-portfolio.netlify.app/images/1.jpg",
+  jobTitle: "Full-Stack Developer & Digital Solutions Architect",
+  description:
+    "Full-Stack Developer from Addis Ababa, Ethiopia building complete, practical, and user-friendly digital solutions.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Addis Ababa",
+    addressCountry: "Ethiopia",
+  },
+  email: "sisayabebayew@gmail.com",
+  telephone: "+251965681966",
+  sameAs: [
+    "https://linkedin.com/in/sisay-abebayew",
+    "https://t.me/bboysis",
+    "https://instagram.com/bboysis",
+    "https://x.com/bboysis",
+    "https://github.com/bboysis",
+    "https://sisaydev-portfolio.netlify.app",
+  ],
+  knowsAbout: [
+    "Web Development",
+    "Full-Stack Development",
+    "PHP",
+    "JavaScript",
+    "MySQL",
+    "React",
+    "Next.js",
+  ],
+};
+
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
       className={`${inter.variable} ${spaceGrotesk.variable}`}
     >
+<head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
+      </head>
+
       <body className="flex min-h-screen flex-col">
         <ServiceWorkerRegister />
 <InstallPrompt/>
