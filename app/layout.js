@@ -25,8 +25,8 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata = {
   metadataBase: new URL(
-    "https://sisaydev-portfolio.netlify.app"
-  ),
+  "https://portfolio-next-orpin-gamma.vercel.app"
+),
 
   // Google Search Console verification
   verification: {
@@ -96,10 +96,10 @@ export const metadata = {
   },
 
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://sisaydev-portfolio.netlify.app",
-    siteName: "Sisay Abebayew Portfolio",
+  type: "website",
+  locale: "en_US",
+  url: "https://portfolio-next-orpin-gamma.vercel.app",
+  siteName: "Sisay Abebayew Portfolio",
 
     title: "Sisay Abebayew | Full-Stack Developer",
 
@@ -128,8 +128,8 @@ export const metadata = {
   },
 
   alternates: {
-    canonical: "https://sisaydev-portfolio.netlify.app",
-  },
+  canonical: "https://portfolio-next-orpin-gamma.vercel.app",
+},
 
   category: "technology",
 };
@@ -149,26 +149,32 @@ const structuredData = {
   "@type": "Person",
   name: "Sisay Abebayew",
   alternateName: "Sisay",
-  url: "https://sisaydev-portfolio.netlify.app",
-  image: "https://sisaydev-portfolio.netlify.app/images/1.jpg",
+  url: "https://portfolio-next-orpin-gamma.vercel.app",
+  image: "https://portfolio-next-orpin-gamma.vercel.app/images/1.jpg",
+
   jobTitle: "Full-Stack Developer & Digital Solutions Architect",
+
   description:
     "Full-Stack Developer from Addis Ababa, Ethiopia building complete, practical, and user-friendly digital solutions.",
+
   address: {
     "@type": "PostalAddress",
     addressLocality: "Addis Ababa",
     addressCountry: "Ethiopia",
   },
+
   email: "sisayabebayew@gmail.com",
   telephone: "+251965681966",
+
   sameAs: [
     "https://linkedin.com/in/sisay-abebayew",
     "https://t.me/bboysis",
     "https://instagram.com/bboysis",
     "https://x.com/bboysis",
     "https://github.com/bboysis",
-    "https://sisaydev-portfolio.netlify.app",
+    "https://portfolio-next-orpin-gamma.vercel.app",
   ],
+
   knowsAbout: [
     "Web Development",
     "Full-Stack Development",
@@ -179,7 +185,6 @@ const structuredData = {
     "Next.js",
   ],
 };
-
 export default function RootLayout({ children }) {
   return (
     <html
