@@ -187,13 +187,14 @@ export default function RootLayout({ children }) {
       className={`${inter.variable} ${spaceGrotesk.variable}`}
     >
 <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData),
-          }}
-        />
-      </head>
+  <script
+    id="structured-data-person"
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify(structuredData),
+    }}
+  />
+</head>
 
       <body className="flex min-h-screen flex-col">
         <ServiceWorkerRegister />
