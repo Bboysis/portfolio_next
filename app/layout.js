@@ -1,6 +1,6 @@
  import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-
+import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Backtotop from "@/components/ui/Backtotop";
@@ -205,7 +205,7 @@ export default function RootLayout({ children }) {
         <ServiceWorkerRegister />
 <InstallPrompt/>
         <ScrollProgress />
-
+<ThemeProvider>
         <LoadingScreen />
 
         <Navbar />
