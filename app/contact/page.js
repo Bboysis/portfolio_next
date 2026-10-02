@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import MobileScrollProgress from "@/components/MobileScrollProgress";
-
+import MobileBottomNav from "@/components/MobileBottomNav";
  export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("");
@@ -92,6 +92,7 @@ import MobileScrollProgress from "@/components/MobileScrollProgress";
       className="relative overflow-hidden py-24 sm:py-32"
     >
       <MobileScrollProgress/>
+<MobileBottomNav/>
       {/* Background glow */}
       <div className="pointer-events-none absolute left-0 top-1/4 h-80 w-80 rounded-full bg-accent/10 blur-[140px]" />
 
