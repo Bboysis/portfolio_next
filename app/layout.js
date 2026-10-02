@@ -205,7 +205,7 @@ export default function RootLayout({ children }) {
         <ServiceWorkerRegister />
 <InstallPrompt/>
         <ScrollProgress />
-<ThemeProvider>
+
         <LoadingScreen />
 
         <Navbar />
@@ -222,6 +222,7 @@ export default function RootLayout({ children }) {
         <Backtotop />
 
         <CommandPalette />
+<ThemeProvider />
       </body>
     </html>
   );
