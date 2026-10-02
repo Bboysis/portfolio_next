@@ -12,7 +12,7 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-[22px] w-[22px]"
+        className="h-7 w-7"
       >
         <path
           d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10Z"
@@ -32,9 +32,13 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-[22px] w-[22px]"
+        className="h-7 w-7"
       >
-        <circle cx="12" cy="8" r="3.5" />
+        <circle
+          cx="12"
+          cy="8"
+          r="3.5"
+        />
 
         <path
           d="M5 21c.6-3.7 2.9-5.5 7-5.5s6.4 1.8 7 5.5"
@@ -53,7 +57,7 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-[22px] w-[22px]"
+        className="h-7 w-7"
       >
         <rect
           x="4"
@@ -90,7 +94,7 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-[22px] w-[22px]"
+        className="h-7 w-7"
       >
         <path
           d="M6 3h9l4 4v14H6V3Z"
@@ -126,7 +130,7 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-[22px] w-[22px]"
+        className="h-7 w-7"
       >
         <rect
           x="3"
@@ -153,17 +157,22 @@ export default function MobileBottomNav() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition =
-        window.scrollY + window.innerHeight * 0.35;
+        window.scrollY +
+        window.innerHeight * 0.35;
 
       let currentSection = "home";
 
       navigation.forEach((item) => {
-        if (item.id === "home") return;
+        if (item.id === "home") {
+          return;
+        }
 
         const section =
           document.getElementById(item.id);
 
-        if (!section) return;
+        if (!section) {
+          return;
+        }
 
         const top = section.offsetTop;
         const bottom =
@@ -185,7 +194,9 @@ export default function MobileBottomNav() {
     window.addEventListener(
       "scroll",
       handleScroll,
-      { passive: true }
+      {
+        passive: true,
+      }
     );
 
     return () => {
@@ -211,7 +222,7 @@ export default function MobileBottomNav() {
 
     if (!section) {
       console.warn(
-        `Mobile navigation section not found: #${id}`
+        `Section #${id} was not found.`
       );
 
       return;
@@ -231,8 +242,8 @@ export default function MobileBottomNav() {
         bottom-4
         left-1/2
         z-[90]
-        w-[calc(100%-2rem)]
-        max-w-[440px]
+        w-[calc(100%-2.5rem)]
+        max-w-[380px]
         -translate-x-1/2
         rounded-[30px]
         border
@@ -268,35 +279,38 @@ export default function MobileBottomNav() {
               className={`
                 relative
                 flex
-                h-[66px]
+                h-16
                 flex-1
                 flex-col
                 items-center
                 justify-center
                 gap-1
-                rounded-[24px]
+                rounded-[22px]
                 px-1
                 transition-all
                 duration-300
                 active:scale-95
+
                 ${
                   isActive
-                    ? "bg-accent/15 text-accent"
-                    : "text-paper/45 light:text-navy/45"
+                    ? "bg-accent/20 text-accent shadow-[0_0_25px_rgba(78,205,196,0.10)]"
+                    : "text-paper/50 hover:text-paper/80 light:text-navy/50 light:hover:text-navy/80"
                 }
               `}
             >
+              {/* ICON */}
               <span
                 className={`
                   relative
                   z-10
                   flex
-                  h-[22px]
-                  w-[22px]
+                  h-7
+                  w-7
                   items-center
                   justify-center
                   transition-transform
                   duration-300
+
                   ${
                     isActive
                       ? "scale-105"
@@ -307,16 +321,18 @@ export default function MobileBottomNav() {
                 {item.icon}
               </span>
 
+              {/* LABEL */}
               <span
                 className={`
                   relative
                   z-10
                   whitespace-nowrap
-                  text-[10px]
+                  text-[11px]
                   leading-none
                   font-medium
                   transition-colors
                   duration-300
+
                   ${
                     isActive
                       ? "font-semibold text-accent"
