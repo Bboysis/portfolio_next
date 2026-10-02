@@ -190,7 +190,7 @@ export default function MobileBottomNav() {
       aria-label="Mobile navigation"
       className="
         fixed
-        bottom-6
+        bottom-10
         left-[48%]
         z-[90]
         w-[calc(100%-3rem)]
