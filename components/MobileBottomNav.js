@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 const navigation = [
   {
     id: "home",
     label: "Home",
+    href: "/",
+    type: "route",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -26,6 +28,8 @@ const navigation = [
   {
     id: "about",
     label: "About",
+    href: "/about",
+    type: "route",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -34,12 +38,7 @@ const navigation = [
         strokeWidth="1.8"
         className="h-7 w-7"
       >
-        <circle
-          cx="12"
-          cy="8"
-          r="3.5"
-        />
-
+        <circle cx="12" cy="8" r="3.5" />
         <path
           d="M5 21c.6-3.7 2.9-5.5 7-5.5s6.4 1.8 7 5.5"
           strokeLinecap="round"
@@ -51,6 +50,8 @@ const navigation = [
   {
     id: "projects",
     label: "Projects",
+    href: "/#projects",
+    type: "projects",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -59,28 +60,10 @@ const navigation = [
         strokeWidth="1.8"
         className="h-7 w-7"
       >
-        <rect
-          x="4"
-          y="4"
-          width="16"
-          height="16"
-          rx="3"
-        />
-
-        <path
-          d="M8 9h8"
-          strokeLinecap="round"
-        />
-
-        <path
-          d="M8 12.5h8"
-          strokeLinecap="round"
-        />
-
-        <path
-          d="M8 16h5"
-          strokeLinecap="round"
-        />
+        <rect x="4" y="4" width="16" height="16" rx="3" />
+        <path d="M8 9h8" strokeLinecap="round" />
+        <path d="M8 12.5h8" strokeLinecap="round" />
+        <path d="M8 16h5" strokeLinecap="round" />
       </svg>
     ),
   },
@@ -88,6 +71,8 @@ const navigation = [
   {
     id: "resume",
     label: "Resume",
+    href: "/resume",
+    type: "route",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -101,22 +86,13 @@ const navigation = [
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-
         <path
           d="M14 3v5h5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-
-        <path
-          d="M9 12h6"
-          strokeLinecap="round"
-        />
-
-        <path
-          d="M9 16h5"
-          strokeLinecap="round"
-        />
+        <path d="M9 12h6" strokeLinecap="round" />
+        <path d="M9 16h5" strokeLinecap="round" />
       </svg>
     ),
   },
@@ -124,6 +100,8 @@ const navigation = [
   {
     id: "contact",
     label: "Contact",
+    href: "/contact",
+    type: "route",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -132,14 +110,7 @@ const navigation = [
         strokeWidth="1.8"
         className="h-7 w-7"
       >
-        <rect
-          x="3"
-          y="5"
-          width="18"
-          height="14"
-          rx="2"
-        />
-
+        <rect x="3" y="5" width="18" height="14" rx="2" />
         <path
           d="m3 7 9 6 9-6"
           strokeLinecap="round"
@@ -151,87 +122,29 @@ const navigation = [
 ];
 
 export default function MobileBottomNav() {
-  const [activeSection, setActiveSection] =
-    useState("home");
+  const pathname = usePathname();
+  const router = useRouter();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition =
-        window.scrollY +
-        window.innerHeight * 0.35;
+  const handleNavigation = (item) => {
+    if (item.type === "projects") {
+      if (pathname === "/") {
+        const section = document.getElementById("projects");
 
-      let currentSection = "home";
-
-      navigation.forEach((item) => {
-        if (item.id === "home") {
-          return;
+        if (section) {
+          section.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
         }
 
-        const section =
-          document.getElementById(item.id);
-
-        if (!section) {
-          return;
-        }
-
-        const top = section.offsetTop;
-        const bottom =
-          top + section.offsetHeight;
-
-        if (
-          scrollPosition >= top &&
-          scrollPosition < bottom
-        ) {
-          currentSection = item.id;
-        }
-      });
-
-      setActiveSection(currentSection);
-    };
-
-    handleScroll();
-
-    window.addEventListener(
-      "scroll",
-      handleScroll,
-      {
-        passive: true,
+        return;
       }
-    );
 
-    return () => {
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
-    };
-  }, []);
-
-  const scrollToSection = (id) => {
-    if (id === "home") {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-
+      router.push("/#projects");
       return;
     }
 
-    const section =
-      document.getElementById(id);
-
-    if (!section) {
-      console.warn(
-        `Section #${id} was not found.`
-      );
-
-      return;
-    }
-
-    section.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    router.push(item.href);
   };
 
   return (
@@ -263,19 +176,17 @@ export default function MobileBottomNav() {
       <div className="flex items-center justify-between">
         {navigation.map((item) => {
           const isActive =
-            activeSection === item.id;
+            item.id === "home"
+              ? pathname === "/"
+              : pathname === item.href;
 
           return (
             <button
               key={item.id}
               type="button"
-              onClick={() =>
-                scrollToSection(item.id)
-              }
+              onClick={() => handleNavigation(item)}
               aria-label={item.label}
-              aria-current={
-                isActive ? "page" : undefined
-              }
+              aria-current={isActive ? "page" : undefined}
               className={`
                 relative
                 flex
@@ -298,7 +209,6 @@ export default function MobileBottomNav() {
                 }
               `}
             >
-              {/* ICON */}
               <span
                 className={`
                   relative
@@ -310,18 +220,12 @@ export default function MobileBottomNav() {
                   justify-center
                   transition-transform
                   duration-300
-
-                  ${
-                    isActive
-                      ? "scale-105"
-                      : "scale-100"
-                  }
+                  ${isActive ? "scale-105" : "scale-100"}
                 `}
               >
                 {item.icon}
               </span>
 
-              {/* LABEL */}
               <span
                 className={`
                   relative
@@ -332,12 +236,7 @@ export default function MobileBottomNav() {
                   font-medium
                   transition-colors
                   duration-300
-
-                  ${
-                    isActive
-                      ? "font-semibold text-accent"
-                      : ""
-                  }
+                  ${isActive ? "font-semibold text-accent" : ""}
                 `}
               >
                 {item.label}
