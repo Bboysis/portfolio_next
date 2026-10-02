@@ -7,44 +7,57 @@ export default function SmartWelcome() {
   const [greeting, setGreeting] = useState("Welcome");
 
   useEffect(() => {
-    // Check if the visitor already closed the welcome message
     const dismissed = sessionStorage.getItem("welcome-dismissed");
 
-    if (!dismissed) {
-      const hour = new Date().getHours();
+    if (dismissed) {
+      return;
+    }
 
-      if (hour < 12) {
-        setGreeting("Good morning");
-      } else if (hour < 18) {
-        setGreeting("Good afternoon");
-      } else {
-        setGreeting("Good evening");
-      }
+    const hour = new Date().getHours();
 
-      // Show welcome after a small delay
-      const showTimer = setTimeout(() => {
-        setVisible(true);
-      }, 1200);
+    if (hour < 12) {
+      setGreeting("Good morning");
+    } else if (hour < 18) {
+      setGreeting("Good afternoon");
+    } else {
+      setGreeting("Good evening");
+    }
 
-      // Automatically hide after 3 seconds
+    // Show after 1.2 seconds
+    const showTimer = setTimeout(() => {
+      setVisible(true);
+
+      // Start the 3-second countdown AFTER it appears
       const hideTimer = setTimeout(() => {
         setVisible(false);
-      }, 4200);
+      }, 3000);
 
-      return () => {
-        clearTimeout(showTimer);
-        clearTimeout(hideTimer);
-      };
-    }
+      // Store timer so cleanup can clear it
+      window.__smartWelcomeHideTimer = hideTimer;
+    }, 1200);
+
+    return () => {
+      clearTimeout(showTimer);
+
+      if (window.__smartWelcomeHideTimer) {
+        clearTimeout(window.__smartWelcomeHideTimer);
+      }
+    };
   }, []);
 
   const closeWelcome = () => {
     setVisible(false);
 
     sessionStorage.setItem("welcome-dismissed", "true");
+
+    if (window.__smartWelcomeHideTimer) {
+      clearTimeout(window.__smartWelcomeHideTimer);
+    }
   };
 
-  if (!visible) return null;
+  if (!visible) {
+    return null;
+  }
 
   return (
     <div
@@ -68,7 +81,19 @@ export default function SmartWelcome() {
       "
     >
       {/* Accent glow */}
-      <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-accent/15 blur-3xl" />
+      <div
+        className="
+          pointer-events-none
+          absolute
+          -right-10
+          -top-10
+          h-24
+          w-24
+          rounded-full
+          bg-accent/15
+          blur-3xl
+        "
+      />
 
       <div className="relative">
         {/* Close button */}
@@ -100,6 +125,7 @@ export default function SmartWelcome() {
         <div className="flex items-center gap-2">
           <span className="relative flex h-2.5 w-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
           </span>
 
@@ -109,12 +135,30 @@ export default function SmartWelcome() {
         </div>
 
         {/* Greeting */}
-        <h3 className="mt-4 pr-8 font-display text-xl font-bold text-paper light:text-navy">
+        <h3
+          className="
+            mt-4
+            pr-8
+            font-display
+            text-xl
+            font-bold
+            text-paper
+            light:text-navy
+          "
+        >
           {greeting} 👋
         </h3>
 
         {/* Message */}
-        <p className="mt-3 text-sm leading-6 text-paper/60 light:text-navy/60">
+        <p
+          className="
+            mt-3
+            text-sm
+            leading-6
+            text-paper/60
+            light:text-navy/60
+          "
+        >
           Welcome to my digital portfolio. Explore my projects,
           skills, and the solutions I&apos;m building.
         </p>
