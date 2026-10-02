@@ -1,4 +1,4 @@
- "use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -14,12 +14,9 @@ import {
   ArrowUpRight,
   Menu,
   X,
+  TerminalIcon,
+  TestTubeIcon,
 } from "lucide-react";
-import { MapIcon } from "lucide-react";
-import { TerminalIcon } from "lucide-react";
-import { Airplay } from "lucide-react";
-import Testimonials from "../sections/Testimonials";
-import { TestTubeIcon } from "lucide-react";
 
 const navigation = [
   {
@@ -52,7 +49,7 @@ const navigation = [
     href: "/resume",
     icon: FileText,
   },
-   {
+  {
     name: "Testimonials",
     href: "/testimonials",
     icon: TestTubeIcon,
@@ -113,14 +110,97 @@ export default function Navbar() {
           TOP NAVIGATION BAR
       ===================================================== */}
       <header className="fixed left-0 right-0 top-0 z-[100]">
-        <div className="mx-auto flex max-w-7xl items-center justify-end px-4 py-4 sm:px-6 lg:px-8">
+        <div
+          className="
+            mx-auto
+            flex
+            max-w-7xl
+            items-center
+            justify-between
+            px-4
+            py-4
+            sm:px-6
+            lg:px-8
+          "
+        >
+          {/* =================================================
+              LEFT SIDE — PROFILE
+          ================================================= */}
+          <Link
+            href="/"
+            aria-label="Sisay home"
+            className="
+              group
+              flex
+              items-center
+              gap-2.5
+              rounded-full
+              outline-none
+            "
+          >
+            {/* PROFILE IMAGE */}
+            <span
+              className="
+                relative
+                flex
+                h-9
+                w-9
+                shrink-0
+                items-center
+                justify-center
+                overflow-hidden
+                rounded-full
+                border
+                border-accent/40
+                bg-slate-panel/80
+                shadow-lg
+                shadow-black/10
+                backdrop-blur-xl
+                transition-all
+                duration-300
+                group-hover:border-accent
+                group-hover:shadow-[0_0_20px_rgba(78,205,196,0.18)]
+              "
+            >
+              <img
+                src="/images/coder.jpg"
+                alt="Sisay"
+                className="
+                  h-full
+                  w-full
+                  object-cover
+                  transition-transform
+                  duration-500
+                  group-hover:scale-110
+                "
+              />
+            </span>
 
-          {/* -----------------------------------------
-              RIGHT CONTROLS
-          ----------------------------------------- */}
+            {/* NAME */}
+            <span
+              className="
+                font-display
+                text-sm
+                font-semibold
+                tracking-tight
+                text-paper
+                light:text-navy
+                transition-colors
+                duration-300
+                group-hover:text-accent
+              "
+            >
+              Sisay
+            </span>
+          </Link>
+
+          {/* =================================================
+              RIGHT SIDE CONTROLS
+          ================================================= */}
           <div className="flex items-center gap-2 sm:gap-3">
-
-            {/* HIRE ME */}
+            {/* =================================================
+                HIRE ME
+            ================================================= */}
             <Link
               href="/contact"
               className="
@@ -153,6 +233,7 @@ export default function Navbar() {
               {/* Green status dot */}
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
               </span>
 
@@ -160,10 +241,18 @@ export default function Navbar() {
 
               <ArrowUpRight
                 size={14}
-                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                className="
+                  transition-transform
+                  duration-300
+                  group-hover:-translate-y-0.5
+                  group-hover:translate-x-0.5
+                "
               />
             </Link>
-            {/* THEME BUTTON */}
+
+            {/* =================================================
+                THEME BUTTON
+            ================================================= */}
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme"
@@ -195,7 +284,9 @@ export default function Navbar() {
               )}
             </button>
 
-            {/* MENU BUTTON */}
+            {/* =================================================
+                MENU BUTTON
+            ================================================= */}
             <button
               onClick={() => setMenuOpen(true)}
               aria-label="Open navigation"
@@ -256,50 +347,36 @@ export default function Navbar() {
           right-3
           top-3
           z-[120]
-
-          /* SMALLER WIDTH */
           w-[280px]
           max-w-[calc(100vw-24px)]
-
-          /* SMALLER HEIGHT */
           max-h-[calc(100vh-24px)]
-
           overflow-y-auto
-
           rounded-2xl
           border
           border-slate-line
-
           bg-slate-panel/95
-
           p-4
           shadow-2xl
           shadow-black/40
-
           backdrop-blur-2xl
-
           transition-all
           duration-300
           ease-out
-
           sm:right-5
           sm:top-5
           sm:w-[300px]
           sm:p-5
-
           ${
             menuOpen
               ? "translate-x-0 scale-100 opacity-100"
               : "pointer-events-none translate-x-8 scale-95 opacity-0"
           }
-       `}
+        `}
       >
-
         {/* =================================================
             PANEL HEADER
         ================================================= */}
         <div className="mb-4 flex items-center justify-between">
-
           <div>
             <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-accent/70">
               Navigation
@@ -315,7 +392,7 @@ export default function Navbar() {
             onClick={closeMenu}
             aria-label="Close navigation"
             className="
-            flex
+              flex
               h-8
               w-8
               items-center
@@ -354,15 +431,12 @@ export default function Navbar() {
                   rounded-xl
                   px-2.5
                   py-2.5
-
                   text-sm
                   font-medium
                   text-paper/75
                   light:text-navy/75
-
                   transition-all
                   duration-200
-
                   hover:bg-accent/10
                   hover:text-accent
                 "
@@ -376,19 +450,14 @@ export default function Navbar() {
                     shrink-0
                     items-center
                     justify-center
-
                     rounded-lg
                     border
                     border-slate-line
-
                     bg-slate-panel
-
                     text-paper/60
                     light:text-navy/60
-
                     transition-all
                     duration-200
-
                     group-hover:border-accent/40
                     group-hover:bg-accent/10
                     group-hover:text-accent
@@ -424,7 +493,6 @@ export default function Navbar() {
             HIRE ME CTA INSIDE MENU
         ================================================= */}
         <div className="mt-4 border-t border-slate-line pt-4">
-
           <Link
             href="/contact"
             onClick={closeMenu}
@@ -446,7 +514,6 @@ export default function Navbar() {
             "
           >
             <div className="flex items-center gap-2.5">
-
               <span
                 className="
                   flex
@@ -466,6 +533,7 @@ export default function Navbar() {
                 <p className="text-xs font-semibold text-paper light:text-navy">
                   Let's work together
                 </p>
+
                 <p className="text-[10px] text-paper/50 light:text-navy/50">
                   Start a project
                 </p>
