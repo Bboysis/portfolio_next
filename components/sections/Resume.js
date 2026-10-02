@@ -5,9 +5,9 @@ import Link from "next/link";
 export default function Resume() {
   return (
     <section
-      id="resume"
-      className="relative overflow-hidden py-24 sm:py-32"
-    >
+  id="resume"
+  className="relative py-24"
+>
       {/* Background glow */}
       <div className="pointer-events-none absolute right-0 top-1/3 h-80 w-80 rounded-full bg-accent/10 blur-[130px]" />
 
