@@ -1,84 +1,374 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+
+const commandList = [
+  "help",
+  "about",
+  "skills",
+  "projects",
+  "experience",
+  "contact",
+  "social",
+  "system",
+  "date",
+  "whoami",
+  "pwd",
+  "ls",
+  "clear",
+];
 
 const commands = {
-  help: [
-    "Available commands:",
-    "about      → Learn about me",
-    "skills     → View technical skills",
-    "projects   → Explore my projects",
-    "contact    → Get in touch",
-    "clear      → Clear terminal",
-  ],
+  help: {
+    title: "Available commands",
+    lines: [
+      "help        → Show available commands",
+      "about       → Learn about me",
+      "skills      → View technical skills",
+      "projects    → Explore my projects",
+      "experience  → View my experience",
+      "contact     → Get in touch",
+      "social      → Open my social profiles",
+      "system      → View system information",
+      "date        → Show current date and time",
+      "whoami      → Show current user",
+      "pwd         → Show current directory",
+      "ls          → List available sections",
+      "clear       → Clear terminal",
+    ],
+  },
 
-  about: [
-    "Sisay Abebayew",
-    "Full-Stack Developer",
-    "",
-    "Building practical and user-friendly",
-    "digital solutions.",
-  ],
+  about: {
+    title: "About Sisay",
+    lines: [
+      "Sisay Abebayew",
+      "Full-Stack Developer",
+      "",
+      "Building practical, modern and user-friendly",
+      "digital solutions.",
+      "",
+      "Currently focused on:",
+      "• Web application development",
+      "• Modern UI/UX",
+      "• Database-driven systems",
+      "• Full-stack development",
+    ],
+  },
 
-  skills: [
-    "Frontend:",
-    "HTML • CSS • JavaScript • React • Next.js",
-    "",
-    "Backend:",
-    "PHP • MySQL",
-    "",
-    "Tools:",
-    "Git • GitHub • VS Code",
-  ],
+  skills: {
+    title: "Technical Skills",
+    lines: [
+      "Frontend",
+      "────────",
+      "HTML • CSS • JavaScript",
+      "React • Next.js",
+      "Tailwind CSS",
+      "",
+      "Backend",
+      "───────",
+      "PHP • MySQL",
+      "PostgreSQL • Supabase",
+      "",
+      "Tools",
+      "─────",
+      "Git • GitHub • VS Code",
+    ],
+  },
 
-  projects: [
-    "Featured projects:",
-    "01 → Pharmacy Management System",
-    "02 → School Management System",
-    "03 → Hotel Management System",
-    "04 → E-Commerce Website",
-  ],
+  projects: {
+    title: "Featured Projects",
+    lines: [
+      "01 → Pharmacy Management System",
+      "02 → School Management System",
+      "03 → Hotel Management System",
+      "04 → E-Commerce Website",
+      "05 → Personal Gym Trainer Website",
+      "06 → QR Menu System",
+      "",
+      "Use the Projects page to explore them in detail.",
+    ],
+  },
 
-  contact: [
-    "Email: sisayabebayew@gmail.com",
-    "Location: Ethiopia",
-    "",
-    "Status: Open to opportunities 🟢",
-  ],
+  experience: {
+    title: "Experience",
+    lines: [
+      "Software Development",
+      "────────────────────",
+      "Building full-stack web applications",
+      "and database-driven systems.",
+      "",
+      "Current focus:",
+      "• Next.js",
+      "• JavaScript",
+      "• PHP",
+      "• PostgreSQL",
+      "• Supabase",
+      "• Modern UI/UX",
+    ],
+  },
+
+  contact: {
+    title: "Contact",
+    lines: [
+      "Email:",
+      "sisayabebayew@gmail.com",
+      "",
+      "Location:",
+      "Addis Ababa, Ethiopia",
+      "",
+      "Availability:",
+      "Open to freelance & full-time opportunities 🟢",
+      "",
+      "Response time:",
+      "Usually within 24 hours.",
+    ],
+  },
+
+  social: {
+    title: "Social Profiles",
+    lines: [
+      "GitHub    → github.com/bboysis",
+      "LinkedIn  → linkedin.com/in/sisayabebeyew",
+      "Instagram → instagram.com/bboysis",
+      "Telegram  → t.me/bboysis",
+    ],
+  },
+
+  system: {
+    title: "System Information",
+    lines: [
+      "Portfolio OS",
+      "────────────",
+      "Name       : Sisay Portfolio",
+      "Runtime    : Next.js",
+      "Framework  : React",
+      "Language   : JavaScript",
+      "Styling    : Tailwind CSS",
+      "Database   : Supabase",
+      "Deployment : Vercel",
+      "Status     : ONLINE",
+    ],
+  },
+
+  whoami: {
+    title: "Current User",
+    lines: [
+      "visitor@sisay-portfolio",
+      "",
+      "You are currently exploring",
+      "Sisay's developer portfolio.",
+    ],
+  },
+
+  pwd: {
+    title: "Current Directory",
+    lines: [
+      "/home/sisay/portfolio",
+    ],
+  },
+
+  ls: {
+    title: "Directory Contents",
+    lines: [
+      "about/",
+      "skills/",
+      "projects/",
+      "experience/",
+      "contact/",
+      "social/",
+      "resume/",
+      "terminal/",
+    ],
+  },
 };
 
-const quickCommands = ["help", "about", "skills", "projects", "contact"];
+const quickCommands = [
+  "help",
+  "about",
+  "skills",
+  "projects",
+  "contact",
+];
+
+function getDateOutput() {
+  const now = new Date();
+
+  return [
+    "Current date and time",
+    "─────────────────────",
+    now.toLocaleString(),
+    "",
+    "Timezone: East Africa Time (UTC+3)",
+  ];
+}
+
+function normalizeCommand(value) {
+  return value.trim().toLowerCase();
+}
+
+function getSuggestion(command) {
+  if (!command) return null;
+
+  const match = commandList.find(
+    (item) =>
+      item.startsWith(command) ||
+      command.startsWith(item)
+  );
+
+  return match || null;
+}
 
 export default function DeveloperTerminal() {
   const [history, setHistory] = useState([
-    "Welcome to Sisay's Developer Terminal.",
-    "Type 'help' or choose a command below.",
-    "",
+    {
+      type: "system",
+      text: "Initializing Sisay Developer Terminal...",
+    },
+    {
+      type: "system",
+      text: "System ready.",
+    },
+    {
+      type: "system",
+      text: "Type 'help' to see available commands.",
+    },
+    {
+      type: "blank",
+      text: "",
+    },
   ]);
 
   const [input, setInput] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
+  const [commandHistory, setCommandHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [isBooting, setIsBooting] = useState(true);
+  const [commandCount, setCommandCount] = useState(0);
 
-  const runCommand = (command) => {
-    const cleanCommand = command.trim().toLowerCase();
+  const inputRef = useRef(null);
+  const terminalBodyRef = useRef(null);
 
-    if (!cleanCommand || isTyping) return;
+  const availableCommands = useMemo(
+    () => commandList,
+    []
+  );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsBooting(false);
+    }, 900);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    terminalBodyRef.current?.scrollTo({
+      top: terminalBodyRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [history]);
+
+  const focusTerminal = () => {
+    inputRef.current?.focus();
+  };
+
+  const addHistory = (items) => {
+    setHistory((previous) => [
+      ...previous,
+      ...items,
+    ]);
+  };
+
+  const runCommand = (rawCommand) => {
+    const command = normalizeCommand(rawCommand);
+
+    if (!command) return;
 
     setInput("");
+    setHistoryIndex(-1);
 
-    if (cleanCommand === "clear") {
+    if (command === "clear") {
       setHistory([]);
+      setCommandCount((count) => count + 1);
+      focusTerminal();
       return;
     }
 
-    const output = commands[cleanCommand];
+    if (!commandHistory.includes(command)) {
+      setCommandHistory((previous) => [
+        ...previous,
+        command,
+      ]);
+    }
 
-    setHistory((previous) => [
-      ...previous,
-      `$ ${cleanCommand}`,
-      ...(output || [`Command not found: ${cleanCommand}`, "Try typing: help"]),
-      "",
-    ]);
+    setCommandCount((count) => count + 1);
+
+    if (command === "date") {
+      addHistory([
+        {
+          type: "command",
+          text: `$ ${command}`,
+        },
+        ...getDateOutput().map((text) => ({
+          type: "output",
+          text,
+        })),
+        {
+          type: "blank",
+          text: "",
+        },
+      ]);
+
+      focusTerminal();
+      return;
+    }
+
+    const result = commands[command];
+
+    if (result) {
+      addHistory([
+        {
+          type: "command",
+          text: `$ ${command}`,
+        },
+        {
+          type: "title",
+          text: result.title,
+        },
+        ...result.lines.map((text) => ({
+          type: "output",
+          text,
+        })),
+        {
+          type: "blank",
+          text: "",
+        },
+      ]);
+    } else {
+      const suggestion = getSuggestion(command);
+
+      addHistory([
+        {
+          type: "command",
+          text: `$ ${command}`,
+        },
+        {
+          type: "error",
+          text: `Command not found: ${command}`,
+        },
+        {
+          type: "output",
+          text: suggestion
+            ? `Did you mean: ${suggestion}?`
+            : "Type 'help' to see available commands.",
+        },
+        {
+          type: "blank",
+          text: "",
+        },
+      ]);
+    }
+
+    focusTerminal();
   };
 
   const handleSubmit = (event) => {
@@ -86,17 +376,74 @@ export default function DeveloperTerminal() {
     runCommand(input);
   };
 
-  useEffect(() => {
-    setIsTyping(false);
-  }, [history]);
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+
+      if (commandHistory.length === 0) return;
+
+      const nextIndex =
+        historyIndex === -1
+          ? commandHistory.length - 1
+          : Math.max(historyIndex - 1, 0);
+
+      setHistoryIndex(nextIndex);
+      setInput(commandHistory[nextIndex]);
+    }
+
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+
+      if (commandHistory.length === 0) return;
+
+      if (historyIndex === -1) return;
+
+      const nextIndex = historyIndex + 1;
+
+      if (nextIndex >= commandHistory.length) {
+        setHistoryIndex(-1);
+        setInput("");
+        return;
+      }
+
+      setHistoryIndex(nextIndex);
+      setInput(commandHistory[nextIndex]);
+    }
+
+    if (event.key === "Tab") {
+      event.preventDefault();
+
+      const current = normalizeCommand(input);
+
+      if (!current) return;
+
+      const matches = availableCommands.filter((command) =>
+        command.startsWith(current)
+      );
+
+      if (matches.length === 1) {
+        setInput(matches[0]);
+      }
+    }
+
+    if (event.ctrlKey && event.key.toLowerCase() === "l") {
+      event.preventDefault();
+      setHistory([]);
+    }
+
+    if (event.ctrlKey && event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      focusTerminal();
+    }
+  };
 
   return (
     <section
       id="terminal"
       className="relative overflow-hidden py-24 sm:py-32"
     >
-      {/* Background glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[450px] w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/[0.07] blur-[160px]" />
+      {/* Ambient glow */}
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/[0.07] blur-[170px]" />
 
       <div className="section-container relative z-10">
         {/* Heading */}
@@ -107,17 +454,20 @@ export default function DeveloperTerminal() {
 
           <h2 className="font-display text-3xl font-bold text-paper sm:text-4xl lg:text-5xl light:text-navy">
             Explore My
-            <span className="text-accent"> Developer World</span>
+            <span className="text-accent">
+              {" "}
+              Developer World
+            </span>
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-paper/60 sm:text-lg light:text-navy/60">
-            Try a command and explore my skills, projects, and development
-            journey.
+            Explore my skills, projects, experience and
+            developer profile through an interactive terminal.
           </p>
         </div>
 
         {/* Terminal */}
-        <div className="mx-auto mt-14 max-w-4xl">
+        <div className="mx-auto mt-14 max-w-5xl">
           <div
             className="
               overflow-hidden
@@ -131,7 +481,7 @@ export default function DeveloperTerminal() {
               light:bg-white/95
             "
           >
-            {/* Terminal header */}
+            {/* Header */}
             <div
               className="
                 flex
@@ -144,87 +494,152 @@ export default function DeveloperTerminal() {
                 sm:px-6
               "
             >
-              {/* Window buttons */}
-              <div className="flex gap-2">
+              {/* Traffic lights */}
+              <div className="flex items-center gap-2">
                 <span className="h-3 w-3 rounded-full bg-red-400/80" />
                 <span className="h-3 w-3 rounded-full bg-yellow-400/80" />
                 <span className="h-3 w-3 rounded-full bg-green-400/80" />
               </div>
+
               {/* Terminal title */}
               <div className="flex items-center gap-2 text-xs text-paper/50 light:text-navy/50">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+                  <span className="relative h-2 w-2 rounded-full bg-accent" />
+                </span>
 
-                <span>
+                <span className="font-mono">
                   sisay@portfolio:~
                 </span>
               </div>
 
-              <div className="w-10" />
+              {/* Command count */}
+              <div className="font-mono text-[10px] text-paper/30 light:text-navy/30">
+                {commandCount} cmd
+              </div>
             </div>
 
             {/* Terminal body */}
-            <div className="min-h-[380px] p-5 font-mono text-sm sm:p-7">
-              {/* History */}
-              <div className="space-y-1">
-                {history.map((line, index) => (
-                  <p
-                    key={`${line}-${index}`}
-                    className={
-                      line.startsWith("$")
-                        ? "text-accent"
-                        : "text-paper/70 light:text-navy/70"
-                    }
+            <div
+              ref={terminalBodyRef}
+              onClick={focusTerminal}
+              className="
+                relative
+                h-[420px]
+                overflow-y-auto
+                p-5
+                font-mono
+                text-sm
+                sm:p-7
+              "
+            >
+              {/* Scanline effect */}
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  inset-0
+                  opacity-[0.025]
+                  [background-image:linear-gradient(rgba(255,255,255,0.8)_1px,transparent_1px)]
+                  [background-size:100%_4px]
+                "
+              />
+
+              <div className="relative z-10 space-y-1">
+                {history.map((item, index) => {
+                  if (item.type === "blank") {
+                    return (
+                      <div
+                        key={index}
+                        className="h-2"
+                      />
+                    );
+                  }
+
+                  if (item.type === "command") {
+                    return (
+                      <p
+                        key={index}
+                        className="text-accent"
+                      >
+                        {item.text}
+                      </p>
+                    );
+                  }
+
+                  if (item.type === "title") {
+                    return (
+                      <p
+                        key={index}
+                        className="mt-2 font-semibold text-accent"
+                      >
+                        {item.text}
+                      </p>
+                    );
+                  }
+
+                  if (item.type === "error") {
+                    return (
+                      <p
+                        key={index}
+                        className="text-red-400"
+                      >
+                        {item.text}
+                      </p>
+                    );
+                  }
+
+                  return (
+                    <p
+                      key={index}
+                      className="text-paper/70 light:text-navy/70"
+                    >
+                      {item.text || "\u00A0"}
+                    </p>
+                  );
+                })}
+
+                {/* Input */}
+                {!isBooting && (
+                  <form
+                    onSubmit={handleSubmit}
+                    className="mt-3 flex items-center gap-2"
                   >
-                    {line || "\u00A0"}
-                  </p>
-                ))}
+                    <span className="text-accent">
+                      $
+                    </span>
+
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={input}
+                      onChange={(event) => {
+                        setInput(event.target.value);
+                        setHistoryIndex(-1);
+                      }}
+                      onKeyDown={handleKeyDown}
+                      autoComplete="off"
+                      spellCheck="false"
+                      autoFocus
+                      placeholder="type a command..."
+                      className="
+                        min-w-0
+                        flex-1
+                        bg-transparent
+                        text-paper
+                        outline-none
+                        placeholder:text-paper/25
+                        light:text-navy
+                        light:placeholder:text-navy/30
+                      "
+                    />
+
+                    <span className="hidden text-accent/60 sm:inline">
+                      ▌
+                    </span>
+                  </form>
+                )}
               </div>
-
-              {/* Input */}
-              <form
-                onSubmit={handleSubmit}
-                className="mt-4 flex items-center gap-2"
-              >
-                <span className="text-accent">
-                  $
-                </span>
-
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(event) => setInput(event.target.value)}
-                  placeholder="type a command..."
-                  className="
-                    w-full
-                    bg-transparent
-                    text-paper
-                    outline-none
-                    placeholder:text-paper/25
-                    light:text-navy
-                    light:placeholder:text-navy/30
-                  "
-                  autoComplete="off"
-                  spellCheck="false"
-                />
-
-                <button
-                  type="submit"
-                  className="
-                    rounded-lg
-                    border
-                    border-accent/30
-                    px-3
-                    py-1.5
-                    text-xs
-                    font-semibold
-                    text-accent
-                    transition
-                    hover:bg-accent/10
-                  "
-                >
-                  Run
-                </button>
-              </form>
             </div>
 
             {/* Quick commands */}
@@ -237,9 +652,15 @@ export default function DeveloperTerminal() {
                 sm:px-6
               "
             >
-              <p className="mb-3 text-xs text-paper/40 light:text-navy/40">
-                QUICK COMMANDS
-              </p>
+              <div className="mb-3 flex items-center justify-between">
+                <p className="text-[10px] font-semibold tracking-[0.18em] text-paper/40 light:text-navy/40">
+                  QUICK COMMANDS
+                </p>
+
+                <p className="hidden font-mono text-[10px] text-paper/30 sm:block light:text-navy/30">
+                  ↑ ↓ history · TAB autocomplete · CTRL+L clear
+                </p>
+              </div>
 
               <div className="flex flex-wrap gap-2">
                 {quickCommands.map((command) => (
@@ -290,18 +711,24 @@ export default function DeveloperTerminal() {
           </div>
 
           {/* Status */}
-          <div className="mt-5 flex items-center justify-center gap-2 text-xs text-paper/40 light:text-navy/40">
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-xs text-paper/40 light:text-navy/40">
             <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-50" />
-
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
+              <span className="relative h-2.5 w-2.5 rounded-full bg-accent" />
             </span>
 
-            Terminal online — ready for interaction
+            <span>
+              Terminal online — ready for interaction
+            </span>
+
+            <span className="hidden sm:inline">•</span>
+
+            <span className="hidden sm:inline">
+              {availableCommands.length} commands available
+            </span>
           </div>
         </div>
       </div>
     </section>
   );
 }
-              
