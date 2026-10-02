@@ -12,7 +12,7 @@ import PortfolioAssistant from "../components/PortfolioAssistant";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import MobileScrollProgress from "@/components/MobileScrollProgress";
 import MobileMiniAssistant from "@/components/MobileMiniAssistant";
-import Resume from "@/components/sections/Resume";
+
   export default function Home() {
   return (
     <main
@@ -58,7 +58,7 @@ import Resume from "@/components/sections/Resume";
       <SmartWelcome />
       <MobileBottomNav/>
 <PortfolioAssistant/>
- <Resume/>
+ 
     </main>
   );
 }
