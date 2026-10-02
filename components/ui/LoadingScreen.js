@@ -329,29 +329,29 @@ export default function LoadingScreen() {
             "
           >
             <div
-              className="
-                absolute
-                inset-2
-                rounded-[22px]
-                border
-                border-accent/10
-              "
-            />
-
-            <span
-              className="
-                relative
-                z-10
-                font-display
-                text-5xl
-                font-bold
-                text-accent
-                animate-loader-letter
-              "
-            >
-              S
-            </span>
-          </div>
+  className="
+    relative
+    z-10
+    h-20
+    w-20
+    overflow-hidden
+    rounded-full
+    border
+    border-accent/40
+    shadow-[0_0_25px_rgba(78,205,196,0.18)]
+    animate-loader-letter
+  "
+>
+  <img
+    src="/images/coder.jpg"
+    alt="Sisay Abebayew"
+    className="
+      h-full
+      w-full
+      object-cover
+    "
+  />
+</div>
 
           {/* Coordinates */}
           <div
