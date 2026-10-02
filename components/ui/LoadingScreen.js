@@ -19,7 +19,7 @@ export default function LoadingScreen() {
         hideTimer = setTimeout(() => {
           setVisible(false);
         }, 800);
-      }, 500);
+      }, 3000);
     };
 
     if (document.readyState === "complete") {
@@ -31,7 +31,7 @@ export default function LoadingScreen() {
     // Safety fallback
     const safetyTimer = setTimeout(() => {
       finishLoading();
-    }, 4000);
+    }, 6000);
 
     return () => {
       window.removeEventListener("load", finishLoading);
