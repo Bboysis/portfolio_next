@@ -25,8 +25,7 @@ export default function LoadingScreen() {
     const startTime = Date.now();
     const minimumDuration = 6500;
 
-    // Smooth artificial progress.
-    // It approaches 94% and waits for the page.
+    // Smooth artificial progress
     progressTimer = setInterval(() => {
       const elapsed = Date.now() - startTime;
 
@@ -50,7 +49,7 @@ export default function LoadingScreen() {
       setProgress(nextProgress);
     }, 40);
 
-    // Change system status.
+    // Change system status
     stageTimer = setInterval(() => {
       setStage((current) => {
         if (current >= STATUS_STAGES.length - 2) {
@@ -63,6 +62,7 @@ export default function LoadingScreen() {
 
     const finish = () => {
       const elapsed = Date.now() - startTime;
+
       const remaining = Math.max(
         0,
         minimumDuration - elapsed
@@ -93,7 +93,7 @@ export default function LoadingScreen() {
       });
     }
 
-    // Never trap the visitor indefinitely.
+    // Safety fallback
     const safetyTimer = setTimeout(() => {
       finish();
     }, 9000);
@@ -249,8 +249,11 @@ export default function LoadingScreen() {
 
           {/* Corner markers */}
           <span className="absolute left-[18%] top-[18%] h-1 w-1 rounded-full bg-accent/50" />
+
           <span className="absolute right-[18%] top-[27%] h-1 w-1 rounded-full bg-accent/30" />
+
           <span className="absolute bottom-[20%] left-[25%] h-1 w-1 rounded-full bg-accent/40" />
+
           <span className="absolute bottom-[25%] right-[20%] h-1 w-1 rounded-full bg-accent/60" />
 
           {/* =================================================
@@ -329,29 +332,45 @@ export default function LoadingScreen() {
             "
           >
             <div
-  className="
-    relative
-    z-10
-    h-20
-    w-20
-    overflow-hidden
-    rounded-full
-    border
-    border-accent/40
-    shadow-[0_0_25px_rgba(78,205,196,0.18)]
-    animate-loader-letter
-  "
->
-  <img
-    src="/images/coder.jpg"
-    alt="Sisay Abebayew"
-    className="
-      h-full
-      w-full
-      object-cover
-    "
-  />
-</div>
+              className="
+                absolute
+                inset-2
+                rounded-[22px]
+                border
+                border-accent/10
+              "
+            />
+
+            {/* =================================================
+                PROFILE IMAGE
+            ================================================== */}
+
+            <div
+              className="
+                relative
+                z-10
+                h-20
+                w-20
+                overflow-hidden
+                rounded-full
+                border
+                border-accent/40
+                bg-[#031426]
+                shadow-[0_0_25px_rgba(78,205,196,0.18)]
+                animate-loader-letter
+              "
+            >
+              <img
+                src="/images/coder.jpg"
+                alt="Sisay Abebayew"
+                className="
+                  h-full
+                  w-full
+                  object-cover
+                "
+              />
+            </div>
+          </div>
 
           {/* Coordinates */}
           <div
