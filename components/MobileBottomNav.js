@@ -51,7 +51,7 @@ const navigation = [
   {
     id: "projects",
     label: "Projects",
-    href: "/#projects",
+    href: "/projects",
     type: "projects",
     icon: (
       <svg
@@ -190,7 +190,7 @@ export default function MobileBottomNav() {
       aria-label="Mobile navigation"
       className="
         fixed
-        bottom-2
+        bottom-6
         left-[48%]
         z-[90]
         w-[calc(100%-3rem)]
