@@ -14,7 +14,7 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-7 w-7"
+        className="h-5 w-5"
       >
         <path
           d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10Z"
@@ -36,9 +36,10 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-7 w-7"
+        className="h-5 w-5"
       >
         <circle cx="12" cy="8" r="3.5" />
+
         <path
           d="M5 21c.6-3.7 2.9-5.5 7-5.5s6.4 1.8 7 5.5"
           strokeLinecap="round"
@@ -58,12 +59,30 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-7 w-7"
+        className="h-5 w-5"
       >
-        <rect x="4" y="4" width="16" height="16" rx="3" />
-        <path d="M8 9h8" strokeLinecap="round" />
-        <path d="M8 12.5h8" strokeLinecap="round" />
-        <path d="M8 16h5" strokeLinecap="round" />
+        <rect
+          x="4"
+          y="4"
+          width="16"
+          height="16"
+          rx="3"
+        />
+
+        <path
+          d="M8 9h8"
+          strokeLinecap="round"
+        />
+
+        <path
+          d="M8 12.5h8"
+          strokeLinecap="round"
+        />
+
+        <path
+          d="M8 16h5"
+          strokeLinecap="round"
+        />
       </svg>
     ),
   },
@@ -79,20 +98,29 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-7 w-7"
+        className="h-5 w-5"
       >
         <path
           d="M6 3h9l4 4v14H6V3Z"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
+
         <path
           d="M14 3v5h5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <path d="M9 12h6" strokeLinecap="round" />
-        <path d="M9 16h5" strokeLinecap="round" />
+
+        <path
+          d="M9 12h6"
+          strokeLinecap="round"
+        />
+
+        <path
+          d="M9 16h5"
+          strokeLinecap="round"
+        />
       </svg>
     ),
   },
@@ -108,9 +136,16 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-7 w-7"
+        className="h-5 w-5"
       >
-        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <rect
+          x="3"
+          y="5"
+          width="18"
+          height="14"
+          rx="2"
+        />
+
         <path
           d="m3 7 9 6 9-6"
           strokeLinecap="round"
@@ -126,9 +161,11 @@ export default function MobileBottomNav() {
   const router = useRouter();
 
   const handleNavigation = (item) => {
+    // PROJECTS → homepage projects section
     if (item.type === "projects") {
       if (pathname === "/") {
-        const section = document.getElementById("projects");
+        const section =
+          document.getElementById("projects");
 
         if (section) {
           section.scrollIntoView({
@@ -144,6 +181,7 @@ export default function MobileBottomNav() {
       return;
     }
 
+    // HOME / ABOUT / RESUME / CONTACT
     router.push(item.href);
   };
 
@@ -152,25 +190,25 @@ export default function MobileBottomNav() {
       aria-label="Mobile navigation"
       className="
         fixed
-        bottom-4
-        left-1/2
+        bottom-2
+        left-[48%]
         z-[90]
-        w-[calc(100%-2.5rem)]
-        max-w-[380px]
+        w-[calc(100%-3rem)]
+        max-w-[340px]
         -translate-x-1/2
-        rounded-[30px]
+        rounded-[26px]
         border
         border-slate-line
         bg-[#07111f]/95
-        px-2
-        py-2
-        shadow-[0_15px_50px_rgba(0,0,0,0.35)]
+        px-1.5
+        py-1.5
+        shadow-[0_12px_40px_rgba(0,0,0,0.35)]
         backdrop-blur-2xl
         light:bg-white/95
       "
       style={{
         paddingBottom:
-          "calc(env(safe-area-inset-bottom) + 0.5rem)",
+          "calc(env(safe-area-inset-bottom) + 0.375rem)",
       }}
     >
       <div className="flex items-center justify-between">
@@ -184,19 +222,23 @@ export default function MobileBottomNav() {
             <button
               key={item.id}
               type="button"
-              onClick={() => handleNavigation(item)}
+              onClick={() =>
+                handleNavigation(item)
+              }
               aria-label={item.label}
-              aria-current={isActive ? "page" : undefined}
+              aria-current={
+                isActive ? "page" : undefined
+              }
               className={`
                 relative
                 flex
-                h-16
+                h-14
                 flex-1
                 flex-col
                 items-center
                 justify-center
-                gap-1
-                rounded-[22px]
+                gap-0.5
+                rounded-[18px]
                 px-1
                 transition-all
                 duration-300
@@ -204,7 +246,7 @@ export default function MobileBottomNav() {
 
                 ${
                   isActive
-                    ? "bg-accent/20 text-accent shadow-[0_0_25px_rgba(78,205,196,0.10)]"
+                    ? "bg-accent/20 text-accent shadow-[0_0_20px_rgba(78,205,196,0.10)]"
                     : "text-paper/50 hover:text-paper/80 light:text-navy/50 light:hover:text-navy/80"
                 }
               `}
@@ -214,13 +256,17 @@ export default function MobileBottomNav() {
                   relative
                   z-10
                   flex
-                  h-7
-                  w-7
+                  h-5
+                  w-5
                   items-center
                   justify-center
                   transition-transform
                   duration-300
-                  ${isActive ? "scale-105" : "scale-100"}
+                  ${
+                    isActive
+                      ? "scale-105"
+                      : "scale-100"
+                  }
                 `}
               >
                 {item.icon}
@@ -231,12 +277,17 @@ export default function MobileBottomNav() {
                   relative
                   z-10
                   whitespace-nowrap
-                  text-[11px]
+                  text-[10px]
                   leading-none
                   font-medium
                   transition-colors
                   duration-300
-                  ${isActive ? "font-semibold text-accent" : ""}
+
+                  ${
+                    isActive
+                      ? "font-semibold text-accent"
+                      : ""
+                  }
                 `}
               >
                 {item.label}
