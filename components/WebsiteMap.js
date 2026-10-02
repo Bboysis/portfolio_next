@@ -1,322 +1,566 @@
 "use client";
 
-import { useEffect, useState } from "react";
- const sections = [
-  {
-    id: "home",
-    label: "Home",
-    number: "01",
-    icon: "⌂",
-  },
+import Link from "next/link";
+import { useState } from "react";
+
+const nodes = [
   {
     id: "about",
     label: "About",
-    number: "02",
-    icon: "◉",
-  },
-  {
-    id: "skills",
-    label: "Skills",
-    number: "03",
-    icon: "✦",
+    description: "Who I am",
+    href: "/about",
+    position: "top",
   },
   {
     id: "projects",
     label: "Projects",
-    number: "04",
-    icon: "▣",
+    description: "What I build",
+    href: "/#projects",
+    position: "right",
   },
   {
     id: "experience",
     label: "Experience",
-    number: "05",
-    icon: "◈",
+    description: "My journey",
+    href: "/experience",
+    position: "bottom-right",
+  },
+  {
+    id: "terminal",
+    label: "Terminal",
+    description: "Developer mode",
+    href: "/terminal",
+    position: "bottom",
   },
   {
     id: "testimonials",
-    label: "Feedback",
-    number: "06",
-    icon: "★",
+    label: "Testimonials",
+    description: "What people say",
+    href: "/testimonials",
+    position: "bottom-left",
+  },
+  {
+    id: "resume",
+    label: "Resume",
+    description: "My credentials",
+    href: "/resume",
+    position: "left",
   },
   {
     id: "contact",
     label: "Contact",
-    number: "07",
-    icon: "✉",
+    description: "Let's connect",
+    href: "/contact",
+    position: "top-left",
   },
 ];
 
-export default function WebsiteMap() {
-   const [activeSection, setActiveSection] = useState("home");
+const mobileNodes = [
+  {
+    id: "about",
+    label: "About",
+    description: "Who I am",
+    href: "/about",
+  },
+  {
+    id: "projects",
+    label: "Projects",
+    description: "What I build",
+    href: "/#projects",
+  },
+  {
+    id: "experience",
+    label: "Experience",
+    description: "My journey",
+    href: "/experience",
+  },
+  {
+    id: "terminal",
+    label: "Terminal",
+    description: "Developer mode",
+    href: "/terminal",
+  },
+  {
+    id: "testimonials",
+    label: "Testimonials",
+    description: "What people say",
+    href: "/testimonials",
+  },
+  {
+    id: "resume",
+    label: "Resume",
+    description: "My credentials",
+    href: "/resume",
+  },
+  {
+    id: "contact",
+    label: "Contact",
+    description: "Let's connect",
+    href: "/contact",
+  },
+];
 
-  useEffect(() => {
-    const observers = [];
-
-    sections.forEach((section) => {
-      const element = document.getElementById(section.id);
-
-      if (!element) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(section.id);
+function Node({
+  node,
+  active,
+  onHover,
+  onLeave,
+}) {
+  return (
+    <Link
+      href={node.href}
+      onMouseEnter={() => onHover(node.id)}
+      onMouseLeave={onLeave}
+      className={`
+        group absolute z-20
+        flex w-32
+        -translate-x-1/2
+        -translate-y-1/2
+        flex-col items-center
+        transition-all duration-500
+        ${active ? "scale-110" : "scale-100"}
+      `}
+    >
+      {/* Node */}
+      <div
+        className={`
+          relative flex h-16 w-16
+          items-center justify-center
+          rounded-2xl
+          border
+          backdrop-blur-xl
+          transition-all duration-500
+          ${
+            active
+              ? "border-accent bg-accent/15 shadow-[0_0_35px_rgba(78,205,196,0.22)]"
+              : "border-slate-line bg-navy/80 group-hover:border-accent/50 group-hover:bg-accent/10"
           }
-        },
-        {
-          threshold: 0.35,
-        }
-      );
+        `}
+      >
+        {/* Inner glow */}
+        <span
+          className={`
+            absolute inset-2 rounded-xl
+            transition-all duration-500
+            ${
+              active
+                ? "bg-accent/10"
+                : "bg-white/[0.02] group-hover:bg-accent/5"
+            }
+          `}
+        />
 
-      observer.observe(element);
-      observers.push(observer);
-    });
+        {/* Center */}
+        <span
+          className={`
+            relative h-2.5 w-2.5 rounded-full
+            transition-all duration-500
+            ${
+              active
+                ? "bg-accent shadow-[0_0_14px_rgba(78,205,196,0.9)]"
+                : "bg-paper/30 group-hover:bg-accent"
+            }
+          `}
+        />
+      </div>
 
-    return () => {
-      observers.forEach((observer) => observer.disconnect());
-    };
-  }, []);
+      {/* Label */}
+      <span
+        className={`
+          mt-3 text-center
+          font-display text-xs font-semibold
+          transition-colors duration-300
+          ${
+            active
+              ? "text-accent"
+              : "text-paper/70 group-hover:text-accent"
+          }
+          light:text-navy/70
+        `}
+      >
+        {node.label}
+      </span>
 
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
+      {/* Description */}
+      <span
+        className="
+          mt-1 text-center
+          text-[10px]
+          text-paper/35
+          light:text-navy/40
+        "
+      >
+        {node.description}
+      </span>
+    </Link>
+  );
+}
 
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
+export default function WebsiteMap() {
+  const [activeNode, setActiveNode] = useState(null);
 
   return (
     <section
-      id="explore"
+      id="website-map"
       className="relative overflow-hidden py-24 sm:py-32"
     >
-      {/* Background glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/[0.06] blur-[160px]" />
+      {/* Ambient background */}
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[550px] w-[550px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/[0.05] blur-[180px]" />
 
       <div className="section-container relative z-10">
-
         {/* Heading */}
         <div className="mx-auto max-w-3xl text-center">
-
           <p className="eyebrow mb-4">
-            Explore Portfolio
+            Website Architecture
           </p>
 
           <h2 className="font-display text-3xl font-bold text-paper sm:text-4xl lg:text-5xl light:text-navy">
             Explore My
-            <span className="text-accent"> Digital World</span>
+            <span className="text-accent">
+              {" "}
+              Digital Space
+            </span>
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-paper/60 sm:text-lg light:text-navy/60">
-            Navigate through my portfolio and discover my skills,
-            projects, experience, and development journey.
+            Navigate through my portfolio using the interactive
+            website map.
           </p>
-
         </div>
 
-        {/* Map container */}
-        <div
-          className="
-            mx-auto
-            mt-14
-            max-w-5xl
-            rounded-3xl
-            border
-            border-slate-line
-            bg-white/[0.03]
-            p-5
-            backdrop-blur-xl
-            sm:p-8
-            light:bg-white/70
-          "
-        >
+        {/* Desktop map */}
+        <div className="relative mx-auto mt-16 hidden h-[620px] max-w-5xl md:block">
+          {/* Grid */}
+          <div
+            className="
+              absolute inset-0
+              rounded-[3rem]
+              border border-slate-line/60
+              bg-white/[0.01]
+              [background-image:linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)]
+              [background-size:60px_60px]
+              light:bg-navy/[0.015]
+            "
+          />
 
-          {/* Map header */}
-          <div className="flex flex-col gap-4 border-b border-slate-line pb-6 sm:flex-row sm:items-center sm:justify-between">
+          {/* SVG connections */}
+          <svg
+            viewBox="0 0 1000 620"
+            className="pointer-events-none absolute inset-0 h-full w-full"
+            preserveAspectRatio="none"
+          >
+            {/* Main connections */}
+            <line
+              x1="500"
+              y1="310"
+              x2="500"
+              y2="90"
+              className={`
+                stroke-slate-line
+                transition-all duration-500
+                ${
+                  activeNode === "about"
+                    ? "stroke-accent"
+                    : ""
+                }
+              `}
+              strokeWidth="1.5"
+            />
 
-            <div>
-              <p className="font-display text-lg font-semibold text-paper light:text-navy">
-                Portfolio Map
-              </p>
+            <line
+              x1="500"
+              y1="310"
+              x2="790"
+              y2="210"
+              className={`
+                stroke-slate-line
+                transition-all duration-500
+                ${
+                  activeNode === "projects"
+                    ? "stroke-accent"
+                    : ""
+                }
+              `}
+              strokeWidth="1.5"
+            />
 
-              <p className="mt-1 text-xs text-paper/45 light:text-navy/45">
-                Click a destination to explore
-              </p>
-            </div>
+            <line
+              x1="500"
+              y1="310"
+              x2="760"
+              y2="470"
+              className={`
+                stroke-slate-line
+                transition-all duration-500
+                ${
+                  activeNode === "experience"
+                    ? "stroke-accent"
+                    : ""
+                }
+              `}
+              strokeWidth="1.5"
+            />
 
-            {/* Status */}
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.06] px-3 py-2">
+            <line
+              x1="500"
+              y1="310"
+              x2="500"
+              y2="530"
+              className={`
+                stroke-slate-line
+                transition-all duration-500
+                ${
+                  activeNode === "terminal"
+                    ? "stroke-accent"
+                    : ""
+                }
+              `}
+              strokeWidth="1.5"
+            />
 
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+            <line
+              x1="500"
+              y1="310"
+              x2="240"
+              y2="470"
+              className={`
+                stroke-slate-line
+                transition-all duration-500
+                ${
+                  activeNode === "testimonials"
+                    ? "stroke-accent"
+                    : ""
+                }
+              `}
+              strokeWidth="1.5"
+            />
+
+            <line
+              x1="500"
+              y1="310"
+              x2="210"
+              y2="210"
+              className={`
+                stroke-slate-line
+                transition-all duration-500
+                ${
+                  activeNode === "resume"
+                    ? "stroke-accent"
+                    : ""
+                }
+              `}
+              strokeWidth="1.5"
+            />
+
+            <line
+              x1="500"
+              y1="310"
+              x2="310"
+              y2="90"
+              className={`
+                stroke-slate-line
+                transition-all duration-500
+                ${
+                  activeNode === "contact"
+                    ? "stroke-accent"
+                    : ""
+                }
+              `}
+              strokeWidth="1.5"
+            />
+
+            {/* Animated orbit */}
+            <circle
+              cx="500"
+              cy="310"
+              r="180"
+              fill="none"
+              stroke="currentColor"
+              className="text-accent/10"
+              strokeWidth="1"
+              strokeDasharray="4 12"
+            />
+          </svg>
+
+          {/* Center */}
+          <div
+            className="
+              absolute left-1/2 top-1/2
+              z-30
+              flex h-32 w-32
+              -translate-x-1/2
+              -translate-y-1/2
+              items-center justify-center
+              rounded-[2rem]
+              border border-accent/40
+              bg-[#071015]/95
+              shadow-[0_0_60px_rgba(78,205,196,0.12)]
+              backdrop-blur-xl
+            "
+          >
+            <div className="absolute inset-2 rounded-[1.5rem] border border-accent/10" />
+
+            <div className="relative text-center">
+              <span className="block font-display text-xl font-bold tracking-tight text-paper">
+                SISAY
               </span>
 
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-accent">
-                Interactive Map
+              <span className="mt-1 block text-[9px] font-semibold uppercase tracking-[0.25em] text-accent">
+                Developer
               </span>
-
             </div>
-
           </div>
 
-          {/* Map */}
-          <div className="relative mt-10">
-
-           {/* Connecting line */}
-            <div className="absolute left-1/2 top-6 hidden h-[calc(100%-48px)] w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-accent/30 to-transparent md:block" />
-
-            <div className="grid gap-4 md:grid-cols-2 md:gap-x-20 md:gap-y-8">
-
-              {sections.map((section, index) => {
-                const isActive = activeSection === section.id;
-                const isLeft = index % 2 === 0;
-
-                return (
-                  <div
-                    key={section.id}
-                    className={`relative ${
-                      isLeft ? "md:translate-x-0" : ""
-                    }`}
-                  >
-
-                    {/* Central map node */}
-                    <div
-                      className="
-                        absolute
-                        left-1/2
-                        top-1/2
-                        z-10
-                        hidden
-                        h-4
-                        w-4
-                        -translate-x-1/2
-                        -translate-y-1/2
-                        rounded-full
-                        border-4
-                        border-navy
-                        bg-accent
-                        md:block
-                        light:border-white
-                      "
-                    />
-
-                    {/* Map card */}
-                    <button
-                      onClick={() => scrollToSection(section.id)}
-                      className={`
-                        group
-                        relative
-                        w-full
-                        overflow-hidden
-                        rounded-2xl
-                        border
-                        p-5
-                        text-left
-                        transition-all
-                        duration-300
-                        ${
-                          isActive
-                            ? "border-accent bg-accent/[0.08] shadow-lg shadow-accent/10"
-                            : "border-slate-line bg-white/[0.02] hover:-translate-y-1 hover:border-accent/40 hover:bg-accent/[0.04]"
-                        }
-                        light:bg-white/60
-                     `}
-                    >
-
-                      {/* Number */}
-                      <span className="absolute right-5 top-4 font-mono text-[10px] tracking-widest text-paper/30 light:text-navy/30">
-                        {section.number}
-                      </span>
-
-                      <div className="flex items-center gap-4">
-
-                        {/* Icon */}
-                        <div
-                          className={`
-                            flex
-                            h-12
-                            w-12
-                            shrink-0
-                            items-center
-                            justify-center
-                            rounded-xl
-                            border
-                            text-xl
-                            transition-all
-                            duration-300
-                            ${
-                              isActive
-                                ? "border-accent/40 bg-accent/15 text-accent"
-                                : "border-slate-line bg-white/[0.04] text-paper/70 group-hover:border-accent/30 group-hover:text-accent light:text-navy/70"
-                            }
-                          `}
-                        >
-                          {section.icon}
-                        </div>
-
-                        {/* Text */}
-                        <div>
-
-                          <p
-                            className={`
-                              text-sm
-                              font-semibold
-                              transition
-                              ${
-                                isActive
-                                  ? "text-accent"
-                                  : "text-paper group-hover:text-accent light:text-navy"
-                              }
-                            `}
-                          >
-                            {section.label}
-                          </p>
-
-                          <p className="mt-1 text-xs text-paper/45 light:text-navy/45">
-                            {isActive
-                              ? "You are here"
-                              : "Explore section"}
-                          </p>
-
-                        </div>
-
-                      </div>
-
-                      {/* Active indicator */}
-                      {isActive && (
-                        <div className="absolute bottom-0 left-0 h-[2px] w-full bg-gradient-to-r from-transparent via-accent to-transparent" />
-                      )}
-
-                    </button>
-
-                  </div>
-                );
-              })}
-
-            </div>
-
+          {/* Nodes */}
+          <div className="absolute left-1/2 top-[90px]">
+            <Node
+              node={nodes[0]}
+              active={activeNode === "about"}
+              onHover={setActiveNode}
+              onLeave={() => setActiveNode(null)}
+            />
           </div>
 
-          {/* Bottom navigation */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 border-t border-slate-line pt-7">
+          <div className="absolute left-[79%] top-[34%]">
+            <Node
+              node={nodes[1]}
+              active={activeNode === "projects"}
+              onHover={setActiveNode}
+              onLeave={() => setActiveNode(null)}
+            />
+          </div>
 
-            <span className="text-xs text-paper/40 light:text-navy/40">
-              Current location:
-            </span>
+          <div className="absolute left-[76%] top-[76%]">
+            <Node
+              node={nodes[2]}
+              active={activeNode === "experience"}
+              onHover={setActiveNode}
+              onLeave={() => setActiveNode(null)}
+            />
+          </div>
 
-            <span className="rounded-full border border-accent/20 bg-accent/10 px-4 py-2 text-xs font-semibold text-accent">
-              {sections.find(
-                (section) => section.id === activeSection
-              )?.label || "Home"}
-            </span>
-           </div>
+          <div className="absolute left-1/2 top-[85%]">
+            <Node
+              node={nodes[3]}
+              active={activeNode === "terminal"}
+              onHover={setActiveNode}
+              onLeave={() => setActiveNode(null)}
+            />
+          </div>
 
+          <div className="absolute left-[24%] top-[76%]">
+            <Node
+              node={nodes[4]}
+              active={activeNode === "testimonials"}
+              onHover={setActiveNode}
+              onLeave={() => setActiveNode(null)}
+            />
+          </div>
+
+          <div className="absolute left-[21%] top-[34%]">
+            <Node
+              node={nodes[5]}
+              active={activeNode === "resume"}
+              onHover={setActiveNode}
+              onLeave={() => setActiveNode(null)}
+            />
+          </div>
+
+          <div className="absolute left-[31%] top-[14%]">
+            <Node
+              node={nodes[6]}
+              active={activeNode === "contact"}
+              onHover={setActiveNode}
+              onLeave={() => setActiveNode(null)}
+            />
+          </div>
         </div>
 
+        {/* Mobile map */}
+        <div className="mt-12 grid grid-cols-2 gap-3 md:hidden">
+          {/* Center */}
+          <div
+            className="
+              col-span-2
+              flex
+              min-h-28
+              items-center
+              justify-center
+              rounded-3xl
+              border
+              border-accent/30
+              bg-accent/[0.04]
+              shadow-[0_0_40px_rgba(78,205,196,0.08)]
+            "
+          >
+            <div className="text-center">
+              <div className="font-display text-xl font-bold text-paper light:text-navy">
+                SISAY
+              </div>
+
+              <div className="mt-1 text-[9px] font-semibold uppercase tracking-[0.25em] text-accent">
+                Developer
+              </div>
+            </div>
+          </div>
+
+          {mobileNodes.map((node) => (
+            <Link
+              key={node.id}
+              href={node.href}
+              className="
+                group
+                rounded-2xl
+                border
+                border-slate-line
+                bg-navy/50
+                p-4
+                transition-all
+                duration-300
+                hover:border-accent/40
+                hover:bg-accent/[0.05]
+              "
+            >
+              <div className="flex items-center gap-3">
+                <span
+                  className="
+                    flex h-9 w-9 shrink-0
+                    items-center justify-center
+                    rounded-xl
+                    border border-slate-line
+                    bg-white/[0.02]
+                    transition-all
+                    group-hover:border-accent/40
+                    group-hover:bg-accent/10
+                  "
+                >
+                  <span className="h-2 w-2 rounded-full bg-accent/50 transition-all group-hover:bg-accent group-hover:shadow-[0_0_10px_rgba(78,205,196,0.8)]" />
+                </span>
+
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-semibold text-paper transition-colors group-hover:text-accent light:text-navy">
+                    {node.label}
+                  </p>
+
+                  <p className="mt-0.5 truncate text-[10px] text-paper/35 light:text-navy/40">
+                    {node.description}
+                  </p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Footer hint */}
+        <div className="mt-8 text-center text-xs text-paper/35 light:text-navy/40">
+          <span className="hidden md:inline">
+            Hover over a node to explore the architecture
+          </span>
+
+          <span className="md:hidden">
+            Tap a section to explore
+          </span>
+        </div>
       </div>
     </section>
   );
