@@ -191,7 +191,7 @@ export default function MobileBottomNav() {
       className="
         fixed
         bottom-10
-        left-[48%]
+        left-[43%]
         z-[90]
         w-[calc(100%-3rem)]
         max-w-[340px]
