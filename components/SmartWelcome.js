@@ -21,12 +21,20 @@ export default function SmartWelcome() {
         setGreeting("Good evening");
       }
 
-      // Small delay for a premium entrance effect
-      const timer = setTimeout(() => {
+      // Show welcome after a small delay
+      const showTimer = setTimeout(() => {
         setVisible(true);
       }, 1200);
 
-      return () => clearTimeout(timer);
+      // Automatically hide after 3 seconds
+      const hideTimer = setTimeout(() => {
+        setVisible(false);
+      }, 4200);
+
+      return () => {
+        clearTimeout(showTimer);
+        clearTimeout(hideTimer);
+      };
     }
   }, []);
 
