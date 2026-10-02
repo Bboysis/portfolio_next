@@ -12,7 +12,7 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-full w-full"
+        className="h-[22px] w-[22px]"
       >
         <path
           d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V10Z"
@@ -24,7 +24,7 @@ const navigation = [
   },
 
   {
-    id: "map",
+    id: "about",
     label: "About",
     icon: (
       <svg
@@ -32,16 +32,12 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-full w-full"
+        className="h-[22px] w-[22px]"
       >
-        <circle
-          cx="12"
-          cy="8"
-          r="4"
-        />
+        <circle cx="12" cy="8" r="3.5" />
 
         <path
-          d="M4 21c.7-4 3.3-6 8-6s7.3 2 8 6"
+          d="M5 21c.6-3.7 2.9-5.5 7-5.5s6.4 1.8 7 5.5"
           strokeLinecap="round"
         />
       </svg>
@@ -57,29 +53,29 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-full w-full"
+        className="h-[22px] w-[22px]"
       >
-        <path
-          d="M7 7h10"
-          strokeLinecap="round"
-        />
-
-        <path
-          d="M7 12h10"
-          strokeLinecap="round"
-        />
-
-        <path
-          d="M7 17h6"
-          strokeLinecap="round"
-        />
-
         <rect
-          x="3"
-          y="3"
-          width="18"
-          height="18"
-          rx="4"
+          x="4"
+          y="4"
+          width="16"
+          height="16"
+          rx="3"
+        />
+
+        <path
+          d="M8 9h8"
+          strokeLinecap="round"
+        />
+
+        <path
+          d="M8 12.5h8"
+          strokeLinecap="round"
+        />
+
+        <path
+          d="M8 16h5"
+          strokeLinecap="round"
         />
       </svg>
     ),
@@ -94,7 +90,7 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-full w-full"
+        className="h-[22px] w-[22px]"
       >
         <path
           d="M6 3h9l4 4v14H6V3Z"
@@ -114,7 +110,7 @@ const navigation = [
         />
 
         <path
-          d="M9 16h6"
+          d="M9 16h5"
           strokeLinecap="round"
         />
       </svg>
@@ -130,7 +126,7 @@ const navigation = [
         fill="none"
         stroke="currentColor"
         strokeWidth="1.8"
-        className="h-full w-full"
+        className="h-[22px] w-[22px]"
       >
         <rect
           x="3"
@@ -151,7 +147,8 @@ const navigation = [
 ];
 
 export default function MobileBottomNav() {
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] =
+    useState("home");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -161,18 +158,16 @@ export default function MobileBottomNav() {
       let currentSection = "home";
 
       navigation.forEach((item) => {
-        if (item.id === "home") {
-          return;
-        }
+        if (item.id === "home") return;
 
-        const section = document.getElementById(item.id);
+        const section =
+          document.getElementById(item.id);
 
-        if (!section) {
-          return;
-        }
+        if (!section) return;
 
         const top = section.offsetTop;
-        const bottom = top + section.offsetHeight;
+        const bottom =
+          top + section.offsetHeight;
 
         if (
           scrollPosition >= top &&
@@ -187,9 +182,11 @@ export default function MobileBottomNav() {
 
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      { passive: true }
+    );
 
     return () => {
       window.removeEventListener(
@@ -209,14 +206,21 @@ export default function MobileBottomNav() {
       return;
     }
 
-    const section = document.getElementById(id);
+    const section =
+      document.getElementById(id);
 
-    if (section) {
-      section.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+    if (!section) {
+      console.warn(
+        `Mobile navigation section not found: #${id}`
+      );
+
+      return;
     }
+
+    section.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   return (
@@ -253,6 +257,7 @@ export default function MobileBottomNav() {
           return (
             <button
               key={item.id}
+              type="button"
               onClick={() =>
                 scrollToSection(item.id)
               }
@@ -263,8 +268,7 @@ export default function MobileBottomNav() {
               className={`
                 relative
                 flex
-                h-[68px]
-                min-w-[62px]
+                h-[66px]
                 flex-1
                 flex-col
                 items-center
@@ -277,26 +281,25 @@ export default function MobileBottomNav() {
                 active:scale-95
                 ${
                   isActive
-                    ? "bg-accent/15 text-accent shadow-[0_0_25px_rgba(78,205,196,0.10)]"
-                    : "text-paper/45 hover:text-paper/70 light:text-navy/45 light:hover:text-navy/70"
+                    ? "bg-accent/15 text-accent"
+                    : "text-paper/45 light:text-navy/45"
                 }
               `}
             >
-              {/* Icon */}
               <span
                 className={`
                   relative
                   z-10
                   flex
-                  h-6
-                  w-6
+                  h-[22px]
+                  w-[22px]
                   items-center
                   justify-center
                   transition-transform
                   duration-300
                   ${
                     isActive
-                      ? "scale-110"
+                      ? "scale-105"
                       : "scale-100"
                   }
                 `}
@@ -304,13 +307,13 @@ export default function MobileBottomNav() {
                 {item.icon}
               </span>
 
-              {/* Label */}
               <span
                 className={`
                   relative
                   z-10
                   whitespace-nowrap
                   text-[10px]
+                  leading-none
                   font-medium
                   transition-colors
                   duration-300
