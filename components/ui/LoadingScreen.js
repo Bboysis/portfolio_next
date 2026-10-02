@@ -7,38 +7,39 @@ export default function LoadingScreen() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    const handleLoad = () => {
-      // Give the browser a moment to finish rendering
-      setTimeout(() => {
+    let fadeTimer;
+    let hideTimer;
+
+    const finishLoading = () => {
+      // Give the browser a moment to finish painting the page
+      fadeTimer = setTimeout(() => {
         setLoading(false);
 
-        // Allow the exit animation to finish
-        setTimeout(() => {
+        // Allow the fade animation to finish
+        hideTimer = setTimeout(() => {
           setVisible(false);
-        }, 700);
+        }, 800);
       }, 500);
     };
 
     if (document.readyState === "complete") {
-      handleLoad();
+      finishLoading();
     } else {
-      window.addEventListener("load", handleLoad);
-
-      return () => {
-        window.removeEventListener("load", handleLoad);
-      };
+      window.addEventListener("load", finishLoading);
     }
 
     // Safety fallback
-    const fallback = setTimeout(() => {
-      setLoading(false);
-
-      setTimeout(() => {
-        setVisible(false);
-      }, 700);
+    const safetyTimer = setTimeout(() => {
+      finishLoading();
     }, 4000);
 
-    return () => clearTimeout(fallback);
+    return () => {
+      window.removeEventListener("load", finishLoading);
+
+      clearTimeout(fadeTimer);
+      clearTimeout(hideTimer);
+      clearTimeout(safetyTimer);
+    };
   }, []);
 
   if (!visible) {
@@ -54,56 +55,64 @@ export default function LoadingScreen() {
         flex
         items-center
         justify-center
-        bg-navy
+        bg-[#06182b]
         transition-all
-        duration-700
+        duration-800
+        ease-[cubic-bezier(0.22,1,0.36,1)]
         ${
           loading
-            ? "opacity-100"
-            : "pointer-events-none opacity-0"
+            ? "opacity-100 scale-100"
+            : "pointer-events-none opacity-0 scale-[1.015]"
         }
       `}
     >
-      {/* Background glow */}
+      {/* Soft background glow */}
       <div
         className="
           pointer-events-none
           absolute
           left-1/2
           top-1/2
-          h-[320px]
-          w-[320px]
+          h-[420px]
+          w-[420px]
           -translate-x-1/2
           -translate-y-1/2
           rounded-full
-          bg-accent/10
+          bg-accent/5
           blur-[100px]
         "
       />
 
-      <div className="relative flex flex-col items-center">
-
+      <div
+        className="
+          relative
+          z-10
+          flex
+          flex-col
+          items-center
+          text-center
+        "
+      >
         {/* Logo */}
         <div
           className="
             flex
-            h-20
-            w-20
+            h-28
+            w-28
             items-center
             justify-center
-            rounded-2xl
+            rounded-[24px]
             border
             border-accent/30
-            bg-white/[0.03]
-            shadow-2xl
-            shadow-accent/10
-            backdrop-blur-xl
+            bg-accent/[0.035]
+            shadow-[0_0_50px_rgba(78,205,196,0.08)]
+            animate-loader-logo
           "
         >
           <span
             className="
               font-display
-              text-3xl
+              text-4xl
               font-bold
               text-accent
             "
@@ -112,47 +121,64 @@ export default function LoadingScreen() {
           </span>
         </div>
 
-        {/* Name */}
+        {/* Brand */}
         <h1
           className="
-            mt-6
+            mt-8
             font-display
-            text-xl
+            text-3xl
             font-bold
-            tracking-wide
+            tracking-tight
             text-paper
           "
         >
           Sisay<span className="text-accent">.dev</span>
         </h1>
 
-        {/* Loading text */}
-        <p className="mt-3 text-xs uppercase tracking-[0.3em] text-paper/40">
+        {/* Status */}
+        <p
+          className="
+            mt-5
+            text-[12px]
+            font-medium
+            uppercase
+            tracking-[0.35em]
+            text-paper/40
+            animate-loader-text
+          "
+        >
           Initializing
         </p>
 
-        {/* Loading bar */}
-        <div className="mt-8 h-[2px] w-48 overflow-hidden rounded-full bg-white/10">
+        {/* Progress */}
+        <div
+          className="
+            mt-10
+            h-[3px]
+            w-[270px]
+            overflow-hidden
+            rounded-full
+            bg-white/[0.08]
+          "
+        >
           <div
             className="
               h-full
-              w-1/2
+              w-[45%]
               rounded-full
               bg-accent
-              shadow-lg
-              shadow-accent/50
-              animate-[loading_1.4s_ease-in-out_infinite]
+              shadow-[0_0_14px_rgba(78,205,196,0.45)]
+              animate-loader-progress
             "
           />
         </div>
 
         {/* Loading dots */}
-        <div className="mt-5 flex items-center gap-2">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent/60 [animation-delay:200ms]" />
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent/30 [animation-delay:400ms]" />
+        <div className="mt-7 flex items-center gap-2">
+          <span className="loader-dot loader-dot-1" />
+          <span className="loader-dot loader-dot-2" />
+          <span className="loader-dot loader-dot-3" />
         </div>
-
       </div>
     </div>
   );
